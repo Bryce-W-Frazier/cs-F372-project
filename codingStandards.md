@@ -186,6 +186,7 @@ Like this:
 This should be use at the beinging for every file.
 ```
 // <filename>
+// <Brief description of purpose.>
 // Started: <date of file creation>
 ```
 
