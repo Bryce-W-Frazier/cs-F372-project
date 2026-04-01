@@ -6,6 +6,7 @@ Bassed from [Mozilla JS Standards](https://developer.mozilla.org/en-US/docs/MDN/
 - Imports should be used at the start of the file after the human readable header.
 - Variables should be declared at the beinging of it's scope (local & global).
 - Functions/Methonds should be declared at the end of it's scope.
+- Do not use elipsis.
 - No line should have more than 80 Chars.
 - Conditionals and loops should have preceeding space after keyword, i.e. `if ()`
 
@@ -27,7 +28,7 @@ Local Var also must be in `snake_case` while global shall be in `UPPER_SNAKE_CAS
 - Use `push()` at add items to arrays.
 
 ## Funcitons
-- Funcitons/Methonds shoud be in `camelCase`.
+- Funcitons/Methonds names shoud be in `camelCase`.
 - Parenthesis after name shall not have a space. Do this: `foo()`.
 - Should not be more than 30 lines long.
 - Use funciton declaration over function expressions.
@@ -43,6 +44,32 @@ Local Var also must be in `snake_case` while global shall be in `UPPER_SNAKE_CAS
   return a + b;
   };
   ```
+- When using anonumous functions as callback, use an arrow funciton to make code cleaner.
+  Do this:
+  ```
+  const array = [1, 2, 3, 4];
+  const sum = array.reduce((a, b) => a + b);
+  ```
+  Not this:
+  ```
+  const array = [1, 2, 3, 4];
+  const sum = array.reduce(function (a, b) {
+    return a + b;
+  });
+  ```
+- When using and identifier, don't use arrow funcitons like this:
+  ```
+  const foo = () => {
+    ...
+  };
+  ```
+  Do this:
+  ```
+  function foo() {
+    ...
+  }
+  ```
+- Always use explecit returns of funcitons.
   
 ## Comments
 - Always have a space between `//` and the comment.
