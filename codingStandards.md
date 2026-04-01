@@ -187,19 +187,19 @@ This should be use at the beinging for every file.
 ```
 // <filename>
 // <Brief description of purpose.>
-// Started: <date of file creation>
+// Started: <yyyy-mm-dd>
 ```
 
 # Version Control
 
 ## Commit Standards
-Use connevtional Committ Format <Doc, Feat, Bug, etc.>:<Discription>.
+Use connevtional Committ Format `<Doc, Feat, Bug, etc.>:<Discription>`. For example: `Bug: Fixed stack overflow.`
 
 Don't take these guidelines too litartly if it would make reading harder in realality. 
 Be sure to be able to articulate why the exception is needed, maybe inculde in commit. 
 
 ## Merges
-- Always use `git pull --rebase' when possible.
+- Always use `git pull --rebase` when possible.
 - If there is a merge conflict contact the author of the conflicting code.
 - If possible resolve conflicts in a pair programing session.
 
