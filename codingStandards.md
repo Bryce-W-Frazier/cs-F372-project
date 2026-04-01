@@ -3,10 +3,10 @@ Bassed from [Mozilla JS Standards](https://developer.mozilla.org/en-US/docs/MDN/
 
 ## Style
 - Indents are two spaces.
-- Imports should be used at the start of the file after the human readable header
-- Variables should be declared at the beinging of it's scope (local & global)
+- Imports should be used at the start of the file after the human readable header.
+- Variables should be declared at the beinging of it's scope (local & global).
 - Functions/Methonds should be declared at the end of it's scope.
-- No line should have more than 80 Chars
+- No line should have more than 80 Chars.
 - Conditionals and loops should have preceeding space after keyword, i.e. `if ()`
 
 
@@ -23,19 +23,33 @@ let apples = [];
 Local Var also must be in `snake_case` while global shall be in `UPPER_SNAKE_CASE`.
 
 ## Arrays
-- Declare arrays by seting it to `[]` not `new Array(length)`
+- Declare arrays by seting it to `[]` not `new Array(length)`.
 - Use `push()` at add items to arrays.
 
 ## Funcitons
 - Funcitons/Methonds shoud be in `camelCase`.
-- Parenthesis after name shall not have a space. Do this: `foo()`
+- Parenthesis after name shall not have a space. Do this: `foo()`.
 - Should not be more than 30 lines long.
-
+- Use funciton declaration over function expressions.
+  Do this:
+  ```
+  function sum(a, b) {
+  return a + b;
+  }
+  ```
+  Not this:
+  ```
+  let sum = function (a, b) {
+  return a + b;
+  };
+  ```
+  
 ## Comments
 - Always have a space between `//` and the comment.
 - Use when the code's logic or purpose isn't obvious.
-- Make sure comments are on the same indenation leve as is code block
-- `console.log()` and `console.error()` should have it's expeted output on the same line
+- Write in full, brief sentence with proper grammer.
+- Make sure comments are on the same indenation leve as is code block.
+- `console.log()` and `console.error()` should have it's expeted output on the same line.
 Do this:
 ```
 console.log(fruitBasket) // ['banana', 'mango', 'orange']
@@ -45,8 +59,8 @@ Not this:
 // Logs: ['banana', 'mango', 'organge']
 console.log(fruitBasket);
 ```
-If the line gets to long then put the comment *after* the log
-- Use `//` all comments even multi-line comments
+If the line gets to long then put the comment *after* the log.
+- Use `//` all comments even multi-line comments.
 Like this:
 ```
 // This is an example of a multi-line comment.
@@ -72,7 +86,7 @@ This should be use at the beinging for every file.
 ```
 
 ## Commit Standards
-Use connevtional Committ Format <Doc, Feat, Bug, etc.>:<Discription>
+Use connevtional Committ Format <Doc, Feat, Bug, etc.>:<Discription>.
 
 Don't take these guidelines too litartly if it would make reading harder in realality. 
 Be sure to be able to articulate why the exception is needed, maybe inculde in commit. 
