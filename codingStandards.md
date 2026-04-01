@@ -8,7 +8,7 @@ Bassed from [Mozilla JS Standards](https://developer.mozilla.org/en-US/docs/MDN/
 - Functions/Methonds should be declared at the end of it's scope.
 - Do not use elipsis.
 - No line should have more than 80 Chars.
-- Conditionals and loops should have preceeding space after keyword, i.e. `if ()`
+
 
 
 ## Variables
@@ -27,7 +27,7 @@ Local Var also must be in `snake_case` while global shall be in `UPPER_SNAKE_CAS
 - Declare arrays by seting it to `[]` not `new Array(length)`.
 - Use `push()` at add items to arrays.
 
-## Funcitons
+## Funcitons/Methonds
 - Funcitons/Methonds names shoud be in `camelCase`.
 - Parenthesis after name shall not have a space. Do this: `foo()`.
 - Should not be more than 30 lines long.
@@ -70,8 +70,85 @@ Local Var also must be in `snake_case` while global shall be in `UPPER_SNAKE_CAS
   }
   ```
 - Always use explecit returns of funcitons.
-  
-## Comments
+
+## Flow Control
+- Flow control statements should have preceeding space after keyword, i.e. `if ()`.
+- When iteragting over a collection, avoid using classical `for (;;)` loop; if possiable use
+  `for...of` like this:
+  ```
+  const dogs = ["Rex", "Lassie"];
+  for (const dog of dogs) {
+    console.log(dog);
+  }
+  ```
+  Not this:
+  ```
+  const dogs = ["Rex", "Lassie"];
+  for (let i = 0; i < dogs.length; i++) {
+    console.log(dogs[i]);
+  }
+  ```
+- When both the key and the value need to accessed use a tupple like this:
+  ```
+  const gerbils = ["Zoé", "Chloé"];
+  gerbils.forEach((gerbil, i) => {
+    console.log(`Gerbil #${i}: ${gerbil}`);
+  });
+  ```
+  Not this:
+  ```
+  const gerbils = ["Zoé", "Chloé"];
+  for (let i = 0; i < gerbils.length; i++) {
+    console.log(`Gerbil #${i}: ${gerbils[i]}`);
+  }
+  ```
+- If an if statement ends with a rturn, do not add an else statment.
+```
+if (test) {
+  ...
+  return; // If this is here...
+} // ... don't add this: else {}
+```
+- Always use braces and indents in flow control like this:
+  ```
+  for (const car of storedCars) {
+    car.paint("red");
+  }
+  ```
+  Not this:
+  ```
+  for (const car of storedCars) car.paint("red");
+  ```
+- In a switch case don't use break and return in the same case like this:
+  ```
+  switch (species) {
+    case "chicken":
+      return farm.shed;
+    case "horse":
+      return corral.entry;
+    default:
+      return "";
+  }
+  ```
+  Not this:
+  ```
+  switch (species) {
+    case "chicken":
+      return farm.shed;
+      break;
+    case "horse":
+      return corral.entry;
+      break;
+    default:
+      return "";
+  }
+  ```
+
+## Error handling
+- Use try and catch statements for volatile operations like networks conections.
+
+
+## Comments 
 - Always have a space between `//` and the comment.
 - Use when the code's logic or purpose isn't obvious.
 - Write in full, brief sentence with proper grammer.
