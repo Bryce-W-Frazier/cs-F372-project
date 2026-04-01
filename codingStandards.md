@@ -32,7 +32,37 @@ Local Var also must be in `snake_case` while global shall be in `UPPER_SNAKE_CAS
 - Should not be more than 30 lines long.
 
 ## Comments
-Use when the code's logic or purpose isn't obvious.
+- Always have a space between `//` and the comment.
+- Use when the code's logic or purpose isn't obvious.
+- Make sure comments are on the same indenation leve as is code block
+- `console.log()` and `console.error()` should have it's expeted output on the same line
+Do this:
+```
+console.log(fruitBasket) // ['banana', 'mango', 'orange']
+```
+Not this:
+```
+// Logs: ['banana', 'mango', 'organge']
+console.log(fruitBasket);
+```
+If the line gets to long then put the comment *after* the log
+- Use `//` all comments even multi-line comments
+Like this:
+```
+// This is an example of a multi-line comment.
+// The imaginary function that follows has some unusual
+// limitations that I want to call out.
+// Limitation 1
+// Limitation 2
+```
+Not this:
+```
+/* This is an example of a multi-line comment.
+  The imaginary function that follows has some unusual
+  limitations that I want to call out.
+  Limitation 1
+  Limitation 2 */
+```
 
 ## Human Readable Header
 This should be use at the beinging for every file.
