@@ -32,7 +32,7 @@ Local Var also must be in `snake_case` while global shall be in `UPPER_SNAKE_CAS
 - Should not be more than 30 lines long.
 
 ## Comments
-Use when the code's logic or purpose isn't obvious
+Use when the code's logic or purpose isn't obvious.
 
 ## Human Readable Header
 This should be use at the beinging for every file.
@@ -42,7 +42,7 @@ This should be use at the beinging for every file.
 ```
 
 ## Commit Standards
-Use connevtional Committ Formate <Doc, Feat, Bug, etc.>:<Discription>
+Use connevtional Committ Format <Doc, Feat, Bug, etc.>:<Discription>
 
 Don't take these guidelines too litartly if it would make reading harder in realality. 
 Be sure to be able to articulate why the exception is needed, maybe inculde in commit. 
