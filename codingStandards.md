@@ -189,8 +189,20 @@ This should be use at the beinging for every file.
 // Started: <date of file creation>
 ```
 
+# Version Control
+
 ## Commit Standards
 Use connevtional Committ Format <Doc, Feat, Bug, etc.>:<Discription>.
 
 Don't take these guidelines too litartly if it would make reading harder in realality. 
 Be sure to be able to articulate why the exception is needed, maybe inculde in commit. 
+
+## Merges
+- Always use `git pull --rebase' when possible.
+- If there is a merge conflict contact the author of the conflicting code.
+- If possible resolve conflicts in a pair programing session.
+
+## Push
+- Notify team via discord group chat before working on code.
+- Push commit's after every session.
+- It's reccomend to push when taking a break.
