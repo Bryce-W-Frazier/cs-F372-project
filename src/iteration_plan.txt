@@ -1,0 +1,15 @@
+ITERATION PLAN - TEAM: MIKO, ARTYOM, BRYCE
+
+Iteration 1 (Week 1): Focus on UI and Server Setup
+Feature | Status
+-------------------------------------------------
+Setup Node.js Server | DONE
+Create basic HTML Login Form | DONE
+Separate CSS and JS files for modularity | DONE
+
+Iteration 2 (Week 2): Focus on Database & Authentication
+Feature | Status
+-------------------------------------------------
+Connect to MongoDB GridFS | PENDING (Next week)
+Hash passwords with SHA-250 | PENDING (Next week)
+Implement Role-based redirect | PENDING (Next week)
