@@ -1,4 +1,7 @@
 // server.js
+// Open and maintain TCP/HTTP contections
+// Added: 2026-03-31
+
 const express = require('express');
 const app = express();
 const path = require('path');

@@ -1,5 +1,7 @@
 // script.js
-// wait for the form to be submitted
+// Wait for the form to be submitted.
+// Added: 2026-03-31
+
 document.getElementById('myForm').addEventListener('submit', function(e) {
     e.preventDefault(); // stops page from refreshing
 
