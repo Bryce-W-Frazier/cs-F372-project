@@ -3,13 +3,12 @@ Bassed from [Mozilla JS Standards](https://developer.mozilla.org/en-US/docs/MDN/
 
 ## Style
 - Indents are two spaces.
+- Use import statments rather than using variables to import modules.
 - Imports should be used at the start of the file after the human readable header.
 - Variables should be declared at the beinging of it's scope (local & global).
 - Functions/Methonds should be declared at the end of it's scope.
 - Do not use elipsis.
 - No line should have more than 80 Chars.
-
-
 
 ## Variables
 Variables must be named in a manner that clearly discribes it's abastract meaning.
