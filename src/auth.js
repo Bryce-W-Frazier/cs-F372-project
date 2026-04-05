@@ -2,18 +2,41 @@
 // Handle authentication calls with mongodb on server end.
 // Started: 2026-01-01
 
-import { sha256 } from 'js-sha256';
-import { mongoose } from 'mongoose';
+const sha256 = require('js-sha256');
+const MongoClient = require('mongodb');
+
+// MondoDB server info.
+const DB_SERVER_URI    = 'localhost';
+const DB_NAME          = 'fakeflix';
+const COLLECTION_NAME  = 'useraccounts';
+
 
 // Function newAccount()
 // Checks if username is free, then pushes new 
 // username and SHA256 hashed password.
-function newAccount(username, password) {
-  if (!isVaildUsername(username)) {
-    // Response to Client
+async function newAccount(username, password) {
+  const Client = new MongoClient(DB_SERVER_URI); 
+  try {
+    // Connect to collection
+    await Client.connect();
+    const Database = Client.db(DB_NAME);
+    const Collection = Database.collection(COLLECTION_NAME);
+ 
+    // Don't make an account with a duplicate username.
+    if (!isVaildUsername(username)) {
+      // Response to Client
+    }
+
+    const NEWUSER = {
+      username: username,
+      password_sha256: password,
+      role: 'viewer',
+    };
+    const RESULT = await collection.insertOne(NEWUSER);
+    console.log('Added new user, Object ID: ${RESULT.insertedID}');
+  } finally {
+    await Client.close();
   }
-  // TODO
-  console.assert(false, "newAccount(): not implemented");
 }
 
 // Function isVaildUsername(username)
@@ -22,3 +45,5 @@ function isVaildUsername(username) {
   // TODO
   console.assert(false, "isVaildUsername: not implemented");
 }
+
+
