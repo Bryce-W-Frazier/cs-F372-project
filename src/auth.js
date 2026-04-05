@@ -23,8 +23,8 @@ async function newAccount(username, password) {
     const Collection = Database.collection(COLLECTION_NAME);
  
     // Don't make an account with a duplicate username.
-    if (!isVaildUsername(username)) {
-      // Response to Client
+    if (isVaildUsername(username)) {
+      // TODO Response to Client
     }
 
     const NEWUSER = {
@@ -32,18 +32,38 @@ async function newAccount(username, password) {
       password_sha256: password,
       role: 'viewer',
     };
+
     const RESULT = await collection.insertOne(NEWUSER);
     console.log('Added new user, Object ID: ${RESULT.insertedID}');
+    // TODO Respone to Client
   } finally {
     await Client.close();
   }
 }
 
 // Function isVaildUsername(username)
-// Check if username is in account database.
-function isVaildUsername(username) {
-  // TODO
-  console.assert(false, "isVaildUsername: not implemented");
+// Check if username is in account database. Returns Bool
+async function isVaildUsername(username) {
+  let result = false;
+  const Client = new MongoClient(DB_SERVER_URI); 
+  try {
+    // Connect to collection
+    await Client.connect();
+    const Database = Client.db(DB_NAME);
+    const Collection = Database.collection(COLLECTION_NAME);
+ 
+    const USER = await collection.findOne({username: username});
+
+    if (USER) {
+      result = true;
+    } else {
+      result = false;
+    }
+
+  } finally {
+    await Client.close();
+  }
+  return result;
 }
 
 
