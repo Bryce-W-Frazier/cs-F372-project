@@ -6,12 +6,16 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
+// Web content filesystem
+const WEB_ROOT = '/';
+const INDEX_PAGE = 'index.html';
+
 // front end files
 app.use(express.static(__dirname));
 
 // localhost:3000 sends the login page
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+app.get(WEB_ROOT, (req, res) => {
+    res.sendFile(path.join(__dirname, INDEX_PAGE));
 });
 
 // start the server
