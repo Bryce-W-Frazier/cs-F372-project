@@ -1,14 +1,16 @@
 # Database Layout of MongoDB
-## user_accounts
+# Database: fakeflix
+## Collection: useracconts
 ```
 [
     {
-        "_id": ObjectID("..."),
-        "username": "john_doe",
-        "passwordHash": "...",
-        "role": "viewer",
+        _id: ObjectID("..."),
+        username: "john_doe",
+        password_sha256: "...",
+        role: "viewer",
     },
     {
         ...
     },
 ]
+```
