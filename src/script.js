@@ -23,7 +23,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     body: JSON.stringify({email, password}),
   });
 
-  await respone.json();
+  await response.json();
 
   if (response.ok) {
     console.log('Login successful!');
