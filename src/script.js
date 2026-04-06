@@ -18,12 +18,10 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
   const response = await fetch(URI.concat(LOGIN_PATH), {
     method: 'POST',
     headers: {
-      Content_type: 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({email, password}),
   });
-
-  await response.json();
 
   if (response.ok) {
     console.log('Login successful!');
