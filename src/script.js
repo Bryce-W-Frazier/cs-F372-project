@@ -4,7 +4,7 @@
 
 const URI = window.location.href;
 const LOGIN_PATH = 'login';
-const LOGIN_URI = URI.concat(LOGIN_PATH));
+const LOGIN_URI = URI.concat(LOGIN_PATH);
 
 // Login
 document.getElementById('loginForm').addEventListener('submit', async function(e) {
