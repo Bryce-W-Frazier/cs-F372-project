@@ -3,7 +3,6 @@
 // Added: 2026-03-31
 
 const express = require('express');
-const bodyParser = require('body-parser');
 const app = express();
 const path = require('path');
 
@@ -21,14 +20,15 @@ app.get(WEB_ROOT, (req, res) => {
 });
 
 // Listen for login requests
-app.use(bodyPaser.json());
+app.use(express.json());
 app.post(LOGIN_PATH, (req, res) => {
   const { email, password } = req.body;
+  console.log(email);
   // auth.authenticate(email, password) TODO
-}
+  res.status(418);
+});
 
 // start the server
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
-    console.log("Waiting to connect to mongo next iteration...");
 });
