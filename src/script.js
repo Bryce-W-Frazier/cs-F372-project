@@ -3,10 +3,11 @@
 // Added: 2026-03-31
 
 const URI = window.location.href;
-const LOGIN_PATH = '/login';
+const LOGIN_PATH = 'login';
 const LOGIN_URI = URI.concat(LOGIN_PATH));
 
-document.getElementById('myForm').addEventListener('submit', async function(e) {
+// Login
+document.getElementById('loginForm').addEventListener('submit', async function(e) {
   e.preventDefault(); // stops page from refreshing
 
   let email = document.getElementById('userEmail').value;
