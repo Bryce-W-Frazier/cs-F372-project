@@ -1,0 +1,16 @@
+# Backlog for project 2 part 1
+## Bryce, Miko, Arytom
+- What we did
+  - Created MongoDB collection for useraccounts.
+  - User cerdentials upload via POST.
+- Issues Raised; Chechbox to resolve.
+  - [ ] Passwords not hased.
+  - [ ] Import internal modules.
+  - [ ] Team still strugles with task distbution. 
+- Next Plan
+  - Implement streaming.
+  - Establish weekly meeting outside of class.
+- Up comming show stoppers
+  - Server and client code being mixed up.
+  - Utilization of github.
+  
