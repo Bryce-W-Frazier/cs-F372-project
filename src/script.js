@@ -2,16 +2,31 @@
 // Wait for the form to be submitted.
 // Added: 2026-03-31
 
-document.getElementById('myForm').addEventListener('submit', function(e) {
+const URI = window.location.href;
+const LOGIN_PATH = '/login';
+const LOGIN_URI = URI.concat(LOGIN_PATH));
+
+document.getElementById('myForm').addEventListener('submit', async function(e) {
   e.preventDefault(); // stops page from refreshing
 
   let email = document.getElementById('userEmail').value;
-  let pass = document.getElementById('userPass').value;
+  let password = document.getElementById('userPass').value;
 
   console.log("User tried to login with: " + email);
     
-  // just an alert for iteration 1 since db isn't hooked up yet
-  alert("Login button clicked! Authentication logic coming in Iteration 2.");
+  const response = await fetch(URI.concat(LOGIN_PATH), {
+    method: 'POST',
+    headers: {
+      Content_type: 'application/json',
+    },
+    body: JSON.stringify({email, password}),
+  });
 
-    
+  await respone.json();
+
+  if (response.ok) {
+    console.log('Login successful!');
+  } else {
+    console.log('Login failed!');
+  }
 });
