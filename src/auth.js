@@ -3,67 +3,90 @@
 // Started: 2026-01-01
 
 const sha256 = require('js-sha256');
-const MongoClient = require('mongodb');
+const { MongoClient } = require('mongodb');
 
 // MondoDB server info.
-const DB_SERVER_URI    = 'localhost';
+const DB_SERVER_URI    = 'mongodb://localhost:27017';
 const DB_NAME          = 'fakeflix';
 const COLLECTION_NAME  = 'useraccounts';
+const MONGO_CLIENT = new MongoClient(DB_SERVER_URI);
 
+// Helper function to grab database
+async function getCollection() {
+  await MONGO_CLIENT.connect();
+  return MONGO_CLIENT.db(DB_NAME).collection(COLLECTION_NAME);
+}
 
 // Function newAccount()
 // Checks if username is free, then pushes new 
 // username and SHA256 hashed password.
 async function newAccount(username, password) {
-  const Client = new MongoClient(DB_SERVER_URI); 
   try {
-    // Connect to collection
-    await Client.connect();
-    const Database = Client.db(DB_NAME);
-    const Collection = Database.collection(COLLECTION_NAME);
+    const db_collection = await getCollection();
+    const hashed_password = sha256(password);
  
     // Don't make an account with a duplicate username.
-    if (isVaildUsername(username)) {
-      // TODO Response to Client
+    if (await isValidUsername(username)) {
+      // return false; // TODO Response to Client
     }
 
-    const NEWUSER = {
+    const new_user = {
       username: username,
-      password_sha256: password,
+      password_sha256: hashed_password,
       role: 'viewer',
     };
 
-    const RESULT = await collection.insertOne(NEWUSER);
-    console.log('Added new user, Object ID: ${RESULT.insertedID}');
-    // TODO Respone to Client
-  } finally {
-    await Client.close();
+    const result = await db_collection.insertOne(new_user);
+    console.log(`Added new user, Object ID: ${result.insertedId}`);
+    return true;
+  } catch (error) {
+      console.error(`Database Error: ${error}`);
+      return false;
   }
 }
 
-// Function isVaildUsername(username)
+// Function isValidUsername(username)
 // Check if username is in account database. Returns Bool
-async function isVaildUsername(username) {
-  let result = false;
-  const Client = new MongoClient(DB_SERVER_URI); 
+async function isValidUsername(username) {
   try {
-    // Connect to collection
-    await Client.connect();
-    const Database = Client.db(DB_NAME);
-    const Collection = Database.collection(COLLECTION_NAME);
- 
-    const USER = await collection.findOne({username: username});
-
-    if (USER) {
-      result = true;
-    } else {
-      result = false;
+    const db_collection = await getCollection();
+    const user = await db_collection.findOne({ username: username });
+    
+    if (user) {
+      return true;
     }
-
-  } finally {
-    await Client.close();
+    return false;
+  } catch (error) {
+    console.error(`Database Error: ${error}`);
+    return false;
   }
-  return result;
 }
 
+// Function authenticateCredentials()
+// Verifies if the incoming credentials
+async function authenticateCredentials(username, password) {
+  try {
+    const db_collection = await getCollection();
+    const hashed_password = sha256(password);
+    
+    const user = await db_collection.findOne({ 
+      username: username,
+      password_sha256: hashed_password
+    });
 
+    if (user) {
+      console.log(`Authentication successful for: ${username}`);
+      return true;
+    } 
+    
+    console.log(`Authentication failed for: ${username}`);
+    return false;
+
+  } catch (error) {
+    console.error(`Database Error: ${error}`);
+    return false;
+  }
+}
+
+// Export the artillery so server.js can use it!
+module.exports = { newAccount, isValidUsername, authenticateCredentials };
