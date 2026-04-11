@@ -24,6 +24,7 @@ app.get(WEB_ROOT, (req, res) => {
 // Listen for login requests
 app.use(express.json());
 
+// Login
 app.post(LOGIN_PATH, async (req, res) => {
   const { email, password } = req.body;
   console.log(`\nLogin attempt from: ${email}`);
@@ -70,3 +71,23 @@ app.post(SIGNUP_PATH, async (req, res) => {
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
 });
+
+// Function loginRedirect.
+// Takes the user role and redirects them to the appropriate page.
+function loginRedirect(USER_ROLE) {
+  switch (USER_ROLE) {
+    case 'viewer':
+      // TODO go to viewer page
+      break;
+    case 'content-editor':
+      // TODO got to content-manager page
+      alert("No content-manager");
+      break;
+    case 'marketing-manager':
+      // TODO
+      alert("no marketing-manger yet");
+      break;
+    default:
+      alert(`Unknown, ${USER_ROLE}`);
+}
+
