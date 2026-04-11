@@ -29,16 +29,36 @@ app.post(LOGIN_PATH, async (req, res) => {
   const { email, password } = req.body;
   console.log(`\nLogin attempt from: ${email}`);
   const is_authenticated = await auth.authenticateCredentials(email, password);
-  
+
   if (is_authenticated) {
     console.log(`User Verified.`);
-    // Status 200 means success
-    res.status(200).send({ message: "Login Successful!" }); 
   } else {
     console.log(`Failed to verify user`);
     // Status 418 means...unauthorized
     res.status(418).send({ message: "Login Failed." }); 
   }
+
+  loginRedirect('viewer', res);
+
+  // Function loginRedirect.
+	// Takes the user role and redirects them to the appropriate page.
+	function loginRedirect(USER_ROLE, res) {
+	  switch (USER_ROLE) {
+	    case 'viewer':
+	      res.redirect(200,'/gallery');
+	      break;
+	    case 'content-editor':
+	      // TODO got to content-manager page
+	      alert("No content-manager");
+	      break;
+	    case 'marketing-manager':
+	      // TODO
+	      alert("no marketing-manger yet");
+	      break;
+	    default:
+	      alert(`Unknown user role: ${USER_ROLE}`);
+          }
+	}  
 });
 
 
@@ -72,22 +92,5 @@ app.listen(3000, () => {
     console.log("Server is running on port 3000");
 });
 
-// Function loginRedirect.
-// Takes the user role and redirects them to the appropriate page.
-function loginRedirect(USER_ROLE) {
-  switch (USER_ROLE) {
-    case 'viewer':
-      // TODO go to viewer page
-      break;
-    case 'content-editor':
-      // TODO got to content-manager page
-      alert("No content-manager");
-      break;
-    case 'marketing-manager':
-      // TODO
-      alert("no marketing-manger yet");
-      break;
-    default:
-      alert(`Unknown, ${USER_ROLE}`);
-}
+
 
