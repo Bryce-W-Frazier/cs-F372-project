@@ -13,9 +13,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
   let email = document.getElementById('userEmail').value;
   let password = document.getElementById('userPass').value;
 
-  console.log("User tried to login with: " + email);
-    
-  const response = await fetch(URI.concat(LOGIN_PATH), {
+   await fetch(URI.concat(LOGIN_PATH), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -23,16 +21,5 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     body: JSON.stringify({email, password}),
   });
 
-  // Extracting message from server
-  const data = await response.json();
 
-  // ok is status 200
-  if (response.ok) {
-    console.log('Login successful!');
-    alert("Success: " + data.message);
-  } else {
-    // 401 unauthorized...or 418 teapot
-    console.log('Login failed!');
-    alert("Failure: " + data.message);
-  }
 });

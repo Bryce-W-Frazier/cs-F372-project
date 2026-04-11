@@ -38,14 +38,14 @@ app.post(LOGIN_PATH, async (req, res) => {
     res.status(418).send({ message: "Login Failed." }); 
   }
 
-  loginRedirect('viewer', res);
+  loginRedirect('viewer');
 
   // Function loginRedirect.
 	// Takes the user role and redirects them to the appropriate page.
-	function loginRedirect(USER_ROLE, res) {
+	function loginRedirect(USER_ROLE) {
 	  switch (USER_ROLE) {
 	    case 'viewer':
-	      res.redirect(200,'/gallery');
+	      res.redirect(302, '/gallery.html');
 	      break;
 	    case 'content-editor':
 	      // TODO got to content-manager page
