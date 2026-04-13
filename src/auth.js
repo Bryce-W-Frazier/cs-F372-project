@@ -17,10 +17,17 @@ async function getCollection() {
   return MONGO_CLIENT.db(DB_NAME).collection(COLLECTION_NAME);
 }
 
-// Function newAccount()
+// Funciton newAccount()
+// Like newAccountAdmin() but only makes view accounts.
+async function newAccount(username, password) {
+  newAccountAdmin(username, password, 'viewer');
+}
+
+
+// Function newAccountAdmin()
 // Checks if username is free, then pushes new 
 // username and SHA256 hashed password.
-async function newAccount(username, password) {
+async function newAccountAdmin(username, password, role) {
   try {
     const db_collection = await getCollection();
     const hashed_password = sha256(password);
@@ -33,7 +40,7 @@ async function newAccount(username, password) {
     const new_user = {
       username: username,
       password_sha256: hashed_password,
-      role: 'viewer',
+      role: role,
     };
 
     const result = await db_collection.insertOne(new_user);
@@ -44,6 +51,7 @@ async function newAccount(username, password) {
       return false;
   }
 }
+
 
 // Function isValidUsername(username)
 // Check if username is in account database. Returns Bool
