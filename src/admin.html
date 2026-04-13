@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stream Admin Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Admin Account Creation for FakeFlix</h2>
+        <form id="signupForm" name="signupForm" method="POST">
+	    <select id="newRole" name="newRole" placeholder="New Role" required>
+	        <option value="viewer">Viewer</option>
+	        <option value="content-editor">Content Editor</option>
+	        <option value="marketing-manager">Marketing Manager</option>
+	        <option value="admin">Admin</option>
+	    </select>
+            <input type="text" id="newEmail" name="newEmail" placeholder="New Email" required>
+            <br>
+            <input type="password" id="newPass" name="newPass" placeholder="New Password" required>
+            <br>
+            <button type="submit" id="signupBtn">Create Account</button>
+        </form>
+        <br>
+    </div>
+
+    <script src="admin.js"></script>
+
+</body>
+</html>
