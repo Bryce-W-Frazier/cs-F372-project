@@ -2,17 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Stream Login</title>
+    <title>FakeFlix - Gallery</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div style="text-align: center; margin: 20px;">
-        <input type="text" id="searchInput" placeholder="Search the movies" style="padding: 10px; width: 60%; font-size: 16px; border-radius: 5px;">
-        <button id="logoutBtn" style="background-color: red; color: white; padding: 10px 20px; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px;">Log Out</button>
-    </div>
+<body style="margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; background-color: #222; color: white; font-family: Arial, sans-serif;">
 
-    <table id="thumbnail_table" name="thumbnail_table">
-    </table>
+    <header style="background-color: #111; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E50914;">
+        <div style="font-size: 24px; font-weight: bold; color: #E50914;">FakeFlix</div>
+        <nav>
+            <a href="/gallery.html" style="color: white; text-decoration: none; margin: 0 10px;">Gallery</a>
+            <a href="#" style="color: white; text-decoration: none; margin: 0 10px;">My Profile</a>
+            <a href="#" style="color: white; text-decoration: none; margin: 0 10px;">Help</a>
+        </nav>
+    </header>
+
+    <main style="flex: 1; padding: 20px;">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <input type="text" id="searchInput" placeholder="Search for movies" style="padding: 10px; width: 60%; font-size: 16px; border-radius: 5px;">
+            <button id="logoutBtn" style="background-color: #E50914; color: white; padding: 10px 20px; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px;">Log Out</button>
+        </div>
+
+        <table id="thumbnail_table" name="thumbnail_table" style="margin: auto; border-collapse: separate; border-spacing: 15px;">
+           </table>
+    </main>
+
+    <footer style="background-color: #111; text-align: center; padding: 15px; border-top: 1px solid #444; font-size: 12px; color: #aaa;">
+        <p>&copy; 2026 FakeFlix Entertainment. All rights reserved.</p>
+        <p>Contact Support: 1-800-FAKE-FLIX | support@fakeflix.com</p>
+    </footer>
 
     <script type="module" src="gallery.js"></script>
 
