@@ -10,7 +10,20 @@ document.getElementById('signupForm').addEventListener('submit', async function(
   let email = document.getElementById('newEmail').value;
   let password = document.getElementById('newPass').value;
 
-  console.log("Attempting to register recruit: " + email);
+  // Enforce strict username formatting
+  if (email.length < 8 || email.length > 16) {
+      alert("Registration Failed: Username/Email must be between 8 and 16 characters.");
+      return;
+  }
+
+  // Enforce strict password formatting using RegEx (Regular Expression) method .test()
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,16}$/;
+  if (!passwordRegex.test(password)) {
+      alert("Registration Failed: Password must be 8-16 characters, contain at least one uppercase letter, one lowercase letter, and one special character.");
+      return;
+  }
+
+  console.log("Attempting to register user: " + email);
     
   const response = await fetch(SIGNUP_PATH, {
     method: 'POST',
@@ -25,9 +38,9 @@ document.getElementById('signupForm').addEventListener('submit', async function(
   if (response.ok) {
     console.log('Registration successful!');
     alert("Account created! Welcome to FakeFlix!");
-    window.location.href = '/'; // Send them back to the login page
+    window.location.href = '/'; // Redirects user back to login page
   } else {
     console.log('Registration failed!');
-    alert("FAILED: " + data.message); // This will say "Username already exists!"
+    alert("FAILED: " + data.message);
   }
 });

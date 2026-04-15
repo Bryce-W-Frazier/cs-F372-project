@@ -5,36 +5,35 @@
 const sha256 = require('js-sha256');
 const { MongoClient } = require('mongodb');
 
-// MondoDB server info.
-const DB_SERVER_URI    = 'mongodb://localhost:27017';
+// MongoDB server info.
+const DB_SERVER_URI    = 'mongodb://127.0.0.1:27017';
 const DB_NAME          = 'fakeflix';
 const COLLECTION_NAME  = 'useraccounts';
 const MONGO_CLIENT = new MongoClient(DB_SERVER_URI);
 
-// Helper function to grab database
+// Helper function to grab database collection
 async function getCollection() {
   await MONGO_CLIENT.connect();
   return MONGO_CLIENT.db(DB_NAME).collection(COLLECTION_NAME);
 }
 
-// Funciton newAccount()
-// Like newAccountAdmin() but only makes view accounts.
+// Function newAccount()
+// Creates a standard viewer account.
 async function newAccount(username, password) {
-  newAccountAdmin(username, password, 'viewer');
+  return await newAccountAdmin(username, password, 'viewer');
 }
-
 
 // Function newAccountAdmin()
 // Checks if username is free, then pushes new 
-// username and SHA256 hashed password.
+// username, SHA256 hashed password, and role.
 async function newAccountAdmin(username, password, role) {
   try {
     const db_collection = await getCollection();
     const hashed_password = sha256(password);
  
-    // Don't make an account with a duplicate username.
+    // Prevent duplicate accounts from crashing the system
     if (await isValidUsername(username)) {
-      // return false; // TODO Response to Client
+      return false; 
     }
 
     const new_user = {
@@ -52,9 +51,8 @@ async function newAccountAdmin(username, password, role) {
   }
 }
 
-
 // Function isValidUsername(username)
-// Check if username is in account database. Returns Bool
+// Check if username is in account database. Returns boolean.
 async function isValidUsername(username) {
   try {
     const db_collection = await getCollection();
@@ -96,5 +94,10 @@ async function authenticateCredentials(username, password) {
   }
 }
 
-// Export the artillery so server.js can use it!
-module.exports = { newAccount, isValidUsername, authenticateCredentials };
+// Export modules for server.js
+module.exports = {
+  newAccount,
+  newAccountAdmin,
+  isValidUsername,
+  authenticateCredentials
+};

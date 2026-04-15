@@ -8,21 +8,20 @@ const auth = require('./auth.js');
 
 const app = express();
 
-// Web content filesystem
 const WEB_ROOT = '/';
 const INDEX_PAGE = 'index.html';
 const LOGIN_PATH = '/login';
+const SIGNUP_PAGE = 'signup.html';
+const SIGNUP_PATH = '/signup';
 
 // Front end files
 app.use(express.static(__dirname));
+app.use(express.json());
 
 // localhost:3000 sends the login page
 app.get(WEB_ROOT, (req, res) => {
     res.sendFile(path.join(__dirname, INDEX_PAGE));
 });
-
-// Listen for login requests
-app.use(express.json());
 
 // Login
 app.post(LOGIN_PATH, async (req, res) => {
@@ -32,38 +31,14 @@ app.post(LOGIN_PATH, async (req, res) => {
 
   if (is_authenticated) {
     console.log(`User Verified.`);
+    // Status 200 means success
+    res.status(200).send({ message: "Login Successful", role: "viewer" });
   } else {
     console.log(`Failed to verify user`);
     // Status 418 means...unauthorized
-    res.status(418).send({ message: "Login Failed." }); 
+    res.status(418).send({ message: "Login Failed. Invalid username or password." }); 
   }
-
-  loginRedirect('viewer');
-
-  // Function loginRedirect.
-	// Takes the user role and redirects them to the appropriate page.
-	function loginRedirect(USER_ROLE) {
-	  switch (USER_ROLE) {
-	    case 'viewer':
-	      res.redirect(302, '/gallery.html');
-	      break;
-	    case 'content-editor':
-	      // TODO got to content-manager page
-	      alert("No content-manager");
-	      break;
-	    case 'marketing-manager':
-	      // TODO
-	      alert("no marketing-manger yet");
-	      break;
-	    default:
-	      alert(`Unknown user role: ${USER_ROLE}`);
-          }
-	}  
 });
-
-
-const SIGNUP_PAGE = 'signup.html';
-const SIGNUP_PATH = '/signup';
 
 app.get(SIGNUP_PATH, (req, res) => {
     res.sendFile(path.join(__dirname, SIGNUP_PAGE));
@@ -81,9 +56,9 @@ app.post(SIGNUP_PATH, async (req, res) => {
     // Status 201 means created
     res.status(201).send({ message: "Signup Successful!" }); 
   } else {
-    console.log(`Failed to create user`);
+    console.log(`Failed to create user. Username may already exist, or there is a database error.`);
     // Status 418 means...teapot
-    res.status(418).send({ message: "Signup Failed." }); 
+    res.status(418).send({ message: "Signup Failed. Username already exists" }); 
   }
 });
 

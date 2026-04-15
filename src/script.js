@@ -2,9 +2,7 @@
 // Wait for the form to be submitted.
 // Added: 2026-03-31
 
-const URI = window.location.href;
-const LOGIN_PATH = 'login';
-const LOGIN_URI = URI.concat(LOGIN_PATH);
+const LOGIN_PATH = '/login';
 
 // Login
 document.getElementById('loginForm').addEventListener('submit', async function(e) {
@@ -13,7 +11,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
   let email = document.getElementById('userEmail').value;
   let password = document.getElementById('userPass').value;
 
-   await fetch(URI.concat(LOGIN_PATH), {
+  const response = await fetch(LOGIN_PATH, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -21,5 +19,13 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     body: JSON.stringify({email, password}),
   });
 
+  const data = await response.json();
 
+  if (response.ok) {
+    // Redirect to the gallery upon successful login
+    window.location.href = '/gallery.html';
+  } else {
+    // Alerts the user why they cannot access the account
+    alert("Login Error: " + data.message);
+  }
 });
