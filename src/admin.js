@@ -25,8 +25,7 @@ document.getElementById('signupForm').addEventListener('submit', async function(
 
   if (response.ok) {
     console.log('Registration successful!');
-    alert("Account created! Welcome to FakeFlix!");
-    window.location.href = '/'; // Send them back to the login page
+    alert("Account created!");
   } else {
     console.log('Registration failed!');
     alert("FAILED: " + data.message); // This will say "Username already exists!"
