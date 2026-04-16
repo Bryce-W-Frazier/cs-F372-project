@@ -22,8 +22,22 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
   const data = await response.json();
 
   if (response.ok) {
-    // Redirect to the gallery upon successful login
-    window.location.href = '/gallery.html';
+    switch (data.role) {
+      case 'viewer':
+        window.location.href = '/gallery.html';
+	break;
+      case 'content-editor':
+        window.location.href = '/content-portal.html';
+	break;
+      case 'marketing-mangager':
+	window.location.href = '/marketing-portal.html';
+	break;
+      case 'admin':
+	window.location.href = '/admin.html';
+	break;
+      default:
+	alert('Invalid user role recived: ' + data.role);
+    }
   } else {
     // Alerts the user why they cannot access the account
     alert("Login Error: " + data.message);

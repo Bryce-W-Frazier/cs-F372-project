@@ -69,7 +69,7 @@ async function isValidUsername(username) {
 }
 
 // Function authenticateCredentials()
-// Verifies if the incoming credentials
+// Verifies if the incoming credentials, returns user role.
 async function authenticateCredentials(username, password) {
   try {
     const db_collection = await getCollection();
@@ -82,15 +82,15 @@ async function authenticateCredentials(username, password) {
 
     if (user) {
       console.log(`Authentication successful for: ${username}`);
-      return true;
+      return user.role;
     } 
     
     console.log(`Authentication failed for: ${username}`);
-    return false;
+    return 'auth-fail';
 
   } catch (error) {
     console.error(`Database Error: ${error}`);
-    return false;
+    return 'auth-fail';
   }
 }
 

@@ -27,12 +27,12 @@ app.get(WEB_ROOT, (req, res) => {
 app.post(LOGIN_PATH, async (req, res) => {
   const { email, password } = req.body;
   console.log(`\nLogin attempt from: ${email}`);
-  const is_authenticated = await auth.authenticateCredentials(email, password);
+  const AUTHED_ROLE = await auth.authenticateCredentials(email, password);
 
-  if (is_authenticated) {
+  if (AUTHED_ROLE != 'auth-fail') {
     console.log(`User Verified.`);
     // Status 200 means success
-    res.status(200).send({ message: "Login Successful", role: "viewer" });
+    res.status(200).send({ message: "Login Successful", role: AUTHED_ROLE });
   } else {
     console.log(`Failed to verify user`);
     // Status 418 means...unauthorized
