@@ -13,6 +13,7 @@ const INDEX_PAGE = 'index.html';
 const LOGIN_PATH = '/login';
 const SIGNUP_PAGE = 'signup.html';
 const SIGNUP_PATH = '/signup';
+const ADMIN_SIGNUP_PATH = '/adminSignup';
 
 // Front end files
 app.use(express.static(__dirname));
@@ -60,6 +61,23 @@ app.post(SIGNUP_PATH, async (req, res) => {
     // Status 418 means...teapot
     res.status(418).send({ message: "Signup Failed. Username already exists" }); 
   }
+});
+
+// Listen for admin sign ups
+app.post(ADMIN_SIGNUP_PATH, async (req, res) => {
+  const { role, email, password } = req.body;
+  
+  const is_created = await auth.newAccountAdmin(email, password, role);
+
+  if (is_created) {
+    console.log(`User created.`);
+    // Status 201 means created
+    res.status(201).send({ message: "Signup Successful!" }); 
+  } else {
+    console.log(`Failed to create user. Username may already exist, or there is a database error.`);
+    // Status 418 means...teapot
+    res.status(418).send({ message: "Signup Failed. Username already exists" }); 
+  } 
 });
 
 // start the server
