@@ -25,7 +25,11 @@
         director: "Georges Méliès",
         relese_year: 1902,
         date_added: in unix time,
-        file_name: "a_trip_to_the_moon_1902.webm",
+        file_name: "a_trip_to_the_moon_1902",
+        comments: [
+                {username: 'johndoe', comment: 'The moon looks weird'},
+                ...
+        ]'
         active: true
     },
     {
