@@ -9,7 +9,8 @@ let thumbnails = new Array(MAX_COLS * MAX_ROWS);
 
 // Get movie data
 const IMG_DIR_NAME = '/thumbnails';
-const MOVIE_DATA = getMovieData();
+const MOVIE_DATA = await getMovieData();
+console.log(MOVIE_DATA);
 let  filenames = getImgFilenames(MOVIE_DATA);
 for (let filename in filenames) {
   filename.concat('.png');
@@ -65,8 +66,10 @@ for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
 // Function getMovieData()
 // Pulls movie data from server.
 async function getMovieData() {
-  const RES = await fetch('/api/moviedata');
-  return await RES.json();
+  const res = await fetch('/api/moviedata');
+  if (!res.ok) throw new Error(res.status);
+  const data = await res.json();
+  return data;
 }
 
 // Function getImgFilenames()

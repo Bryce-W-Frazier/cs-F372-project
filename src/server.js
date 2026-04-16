@@ -5,6 +5,7 @@
 const express = require('express');
 const path = require('path');
 const auth = require('./auth.js');
+const moviedata = require('./moviedata.js');
 
 const app = express();
 
@@ -14,6 +15,7 @@ const LOGIN_PATH = '/login';
 const SIGNUP_PAGE = 'signup.html';
 const SIGNUP_PATH = '/signup';
 const ADMIN_SIGNUP_PATH = '/adminSignup';
+const MOVIE_API_PATH = '/api/moviedata';
 
 // Front end files
 app.use(express.static(__dirname));
@@ -23,6 +25,10 @@ app.use(express.json());
 app.get(WEB_ROOT, (req, res) => {
     res.sendFile(path.join(__dirname, INDEX_PAGE));
 });
+
+// ###################################################################
+// Account Management
+// ###################################################################
 
 // Login
 app.post(LOGIN_PATH, async (req, res) => {
@@ -78,6 +84,14 @@ app.post(ADMIN_SIGNUP_PATH, async (req, res) => {
     // Status 418 means...teapot
     res.status(418).send({ message: "Signup Failed. Username already exists" }); 
   } 
+});
+
+// ###################################################################
+// Movie API
+// ###################################################################
+app.get(MOVIE_API_PATH, async (req, res) => {
+  console.log(await moviedata.getCollection());
+  res.status(200).json(await moviedata.getCollection());
 });
 
 // start the server
