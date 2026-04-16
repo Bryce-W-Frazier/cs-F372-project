@@ -9,7 +9,8 @@ let thumbnails = new Array(MAX_COLS * MAX_ROWS);
 
 // Get movie data
 const IMG_DIR_NAME = '/thumbnails';
-let  filenames = get_img_filenames();
+const MOVIE_DATA = getMovieData();
+let  filenames = getImgFilenames(MOVIE_DATA);
 for (let filename in filenames) {
   filename.concat('.png');
 }
@@ -68,8 +69,8 @@ async function getMovieData() {
   return await RES.json();
 }
 
-// Function get_IMG_FILENAMES()
+// Function getImgFilenames()
 // Gets filenames from movie data.
-function get_IMG_FILENAMES(data) {
+function getImgFilenames(data) {
   return data.map(item => item.file_name);
 }
