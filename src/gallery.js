@@ -10,12 +10,11 @@ let thumbnails = new Array(MAX_COLS * MAX_ROWS);
 // Get movie data
 const IMG_DIR_NAME = '/thumbnails';
 const MOVIE_DATA = await getMovieData();
-console.log(MOVIE_DATA);
 let  filenames = getImgFilenames(MOVIE_DATA);
 for (let filename in filenames) {
-  filename.concat('.png');
+  filename = IMG_DIR_NAME + filename + '.png';
 }
-const IMG_FILENAMES = IMG_DIR_NAME.concat(filenames);
+const IMG_FILENAMES = filenames;
 
 // Generate table for gallery
 for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
@@ -44,7 +43,7 @@ for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
       //filename => english
       .replace(IMG_DIR_NAME, "")
       .replace(/-|_/g, " ")
-      .replace(/.svg|/gi, "")
+      .replace(/.png|/gi, "")
       //To title case
       .split(' ')
       .map(word => 
@@ -75,5 +74,9 @@ async function getMovieData() {
 // Function getImgFilenames()
 // Gets filenames from movie data.
 function getImgFilenames(data) {
-  return data.map(item => item.file_name);
+  let filenames = [];
+  for (const movie of data) {
+    filenames.push(movie.file_name);
+  }
+  return filenames;
 }
