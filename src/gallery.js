@@ -8,13 +8,14 @@ const MAX_COLS = 4;
 let thumbnails = new Array(MAX_COLS * MAX_ROWS);
 
 // Get movie data
-const IMG_DIR_NAME = '/thumbnails';
+const IMG_DIR_NAME = '/thumbnails/';
 const MOVIE_DATA = await getMovieData();
 let  filenames = getImgFilenames(MOVIE_DATA);
+
+let img_paths = [];
 for (let filename in filenames) {
-  filename = IMG_DIR_NAME + filename + '.png';
+  img_paths.push(IMG_DIR_NAME + filenames[filename] + '.png');
 }
-const IMG_FILENAMES = filenames;
 
 // Generate table for gallery
 for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
@@ -33,13 +34,13 @@ for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
     thumbnails.push(id);
 
     // Check if img_index is inbounds
-    if (img_index > IMG_FILENAMES.length) {
+    if (img_index > img_paths.length) {
       row_index = MAX_ROWS; //Quit row iteration
       break; // Quit col iteration
     }
 
     //Parase filename and init tooltip
-    curr_img.title = IMG_FILENAMES[img_index]
+    curr_img.title = img_paths[img_index]
       //filename => english
       .replace(IMG_DIR_NAME, "")
       .replace(/-|_/g, " ")
@@ -51,8 +52,8 @@ for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
       .join(' ');
 
     //init other image atributes
-    curr_img.src = IMG_FILENAMES[img_index];
-    curr_img.alt = IMG_FILENAMES[img_index];
+    curr_img.src = img_paths[img_index];
+    curr_img.alt = img_paths[img_index];
     curr_img.id = id;
     curr_img.name = id;
 
