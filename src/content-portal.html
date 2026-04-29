@@ -13,6 +13,19 @@
     <table id="thumbnail_table" name="thumbnail_table">
     </table>
 
+    <form action="/addContent" method="post" id="addContent" name="addContent">
+	<input type="text" name="title" id="title" placeholder="Title of Flim">
+	<input type="number" name="year" id="year" placeholder="Year of relase">
+
+	<br>
+	<label for="video">Upload .webm here.</label>
+	<input type="file" name="video" id="video">
+
+	<br>
+	<label for="thumbnail">Upload .png here.</label>
+	<input type="file" name="thumbnail" id="thumbnail">
+    </form>
+
     <div style="text-align: center; margin: 20px;">
 	<a href="index.html" ><button id="logoutBtn" style="background-color: red; 
 	color: white; padding: 10px 20px; font-weight: bold; border: none; 
