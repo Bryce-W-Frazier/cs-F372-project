@@ -26,7 +26,7 @@ Bash:
 ```
 npm install express js-sha256 mongodb
 ```
-
+credentials
 We will setup mongodb for the fakeflix.
 Bash:
 ```
@@ -53,3 +53,9 @@ you should see a login page. Enter the username "admin" and the default password
 
 ## What is FakeFlix?
 FakeFlix is a online streaming platform.
+
+Once a users first connects to the site they are sent to the login page. If the user has an 
+account they can sign in with their credentials. If a viewer dosn't have an accout they may 
+create one by clicking the link to the sign up page. 
+
+Once a viewer has logged in, they can click on a movie that in the gallery and watch it. 
