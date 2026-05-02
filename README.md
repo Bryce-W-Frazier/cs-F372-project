@@ -1,8 +1,9 @@
 # cs-F372-project: FakeFlix
-## Dependances
+## NPM Packages
 - expressjs
 - js-sha256
 - mongodb
+- multer
 
 ## Required Hardware
 - Any computer with networking and can run ubuntu 24 or later
@@ -10,7 +11,7 @@
 ## Installation
 First install these on your system:
 - NodeJS 18.x.x or later
-- npm
+- npm 11.12.1 or later
 - mongodb
 
 ### Guide
@@ -24,7 +25,7 @@ cd cs-F372-project/src
 Now Install dependances.
 Bash:
 ```
-npm install express js-sha256 mongodb
+npm install express js-sha256 mongodb multer
 ```
 credentials
 We will setup mongodb for the fakeflix.
