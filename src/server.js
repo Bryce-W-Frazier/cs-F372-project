@@ -25,8 +25,8 @@ const MOVIE_API_PATH = '/api/moviedata';
 const UPLOAD_MOVIE_PATH = '/addContent';
 
 // File Paths
-const VIDEO_DIR = path.join(__dirname, 'uploads', 'video');
-const THUMB_DIR = path.join(__dirname, 'uploads', 'thumbnail');
+const VIDEO_DIR = path.join(__dirname, 'videos');
+const THUMB_DIR = path.join(__dirname, 'thumbnails');
 
 // ###################################################################
 // Storage Management
@@ -165,6 +165,17 @@ app.post('/addContent',
   if (!videoFile || !thumbFile) {
     return res.status(400).send('Both video and thumbnail are required.');
   }
+
+  // videoFile.filename is what multer stored, e.g. "1677-name.webm"
+      const videoFilename = videoFile.filename;
+      const videoBase = path.parse(videoFilename).name; // "1677-name"
+      const thumbExt = path.extname(thumbFile.originalname) || 
+      	path.extname(thumbFile.filename) || '.png';
+
+      // new thumbnail filename (keep thumbnail directory)
+      const newThumbFilename = videoBase + thumbExt; // e.g. "1677-name.png"
+      const oldThumbPath = thumbFile.path;
+      const newThumbPath = path.join(path.dirname(oldThumbPath), newThumbFilename);
 
   // You can store metadata to DB or respond with file paths
   res.json({
