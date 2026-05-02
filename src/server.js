@@ -159,31 +159,31 @@ app.post('/addContent',
 
   // Uploaded files info:
   // req.files.video and req.files.thumbnail are arrays
-  const videoFile = req.files?.video?.[0];
-  const thumbFile = req.files?.thumbnail?.[0];
+  const VIDEO_FILE = req.files?.video?.[0];
+  const THUMB_FILE = req.files?.thumbnail?.[0];
 
-  if (!videoFile || !thumbFile) {
+  if (!VIDEO_FILE || !THUMB_FILE) {
     return res.status(400).send('Both video and thumbnail are required.');
   }
 
-  // videoFile.filename is what multer stored, e.g. "1677-name.webm"
-      const videoFilename = videoFile.filename;
-      const videoBase = path.parse(videoFilename).name; // "1677-name"
-      const thumbExt = path.extname(thumbFile.originalname) || 
-      	path.extname(thumbFile.filename) || '.png';
-
-      // new thumbnail filename (keep thumbnail directory)
-      const newThumbFilename = videoBase + thumbExt; // e.g. "1677-name.png"
-      const oldThumbPath = thumbFile.path;
-      const newThumbPath = path.join(path.dirname(oldThumbPath), newThumbFilename);
+  // Get video filename...
+  const VIDEO_FILENAME = VIDEO_FILE.filename;
+  const VIDO_BASE = path.parse(VIDEO_FILENAME).name;
+  const THUMB_EXT = path.extname(THUMB_FILE.originalname) || 
+    path.extname(THUMB_FILE.filename) || '.png';
+  // ...and rename thumbnail to the same name but preserve minetype.
+  const NEW_THUMB_FILENAME = VIDO_BASE + THUMB_EXT;
+  const OLD_THUMB_PATH = THUMB_FILE.path;
+  const NEW_THUMB_PATH = path
+    .join(path.dirname(OLD_THUMB_PATH), NEW_THUMB_FILENAME);
 
   // You can store metadata to DB or respond with file paths
   res.json({
     message: 'Upload successful',
     title,
     year,
-    videoPath: path.relative(__dirname, videoFile.path),
-    thumbnailPath: path.relative(__dirname, thumbFile.path)
+    videoPath: path.relative(__dirname, VIDEO_FILE.path),
+    thumbnailPath: path.relative(__dirname, THUMB_FILE.path)
   });
 });
 
