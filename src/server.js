@@ -168,23 +168,19 @@ app.post('/addContent',
 
   // Get video filename...
   const VIDEO_FILENAME = VIDEO_FILE.filename;
-  const VIDO_BASE = path.parse(VIDEO_FILENAME).name;
+  const VIDEO_BASE = path.parse(VIDEO_FILENAME).name;
   const THUMB_EXT = path.extname(THUMB_FILE.originalname) || 
     path.extname(THUMB_FILE.filename) || '.png';
   // ...and rename thumbnail to the same name but preserve minetype.
-  const NEW_THUMB_FILENAME = VIDO_BASE + THUMB_EXT;
+  const NEW_THUMB_FILENAME = VIDEO_BASE + THUMB_EXT;
   const OLD_THUMB_PATH = THUMB_FILE.path;
   const NEW_THUMB_PATH = path
     .join(path.dirname(OLD_THUMB_PATH), NEW_THUMB_FILENAME);
 
-  // You can store metadata to DB or respond with file paths
-  res.json({
-    message: 'Upload successful',
-    title,
-    year,
-    videoPath: path.relative(__dirname, VIDEO_FILE.path),
-    thumbnailPath: path.relative(__dirname, THUMB_FILE.path)
-  });
+  // Append to database
+  moviedata.addMovie(title, year, VIDEO_BASE);
+  
+  res.status(200);
 });
 
 
