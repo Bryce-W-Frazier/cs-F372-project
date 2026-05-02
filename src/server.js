@@ -4,19 +4,33 @@
 
 const express = require('express');
 const path = require('path');
+const multer = require('multer');
+const fs = require('fs');
 const auth = require('./auth.js');
 const moviedata = require('./moviedata.js');
 
 const app = express();
 
+// Page Paths
 const WEB_ROOT = '/';
 const INDEX_PAGE = 'index.html';
-const LOGIN_PATH = '/login';
 const SIGNUP_PAGE = 'signup.html';
+
+
+// API Paths
+const LOGIN_PATH = '/login';
 const SIGNUP_PATH = '/signup';
 const ADMIN_SIGNUP_PATH = '/adminSignup';
 const MOVIE_API_PATH = '/api/moviedata';
-const UPLOAD_MOVIE_PATH = '/addContent':
+const UPLOAD_MOVIE_PATH = '/addContent';
+
+// File Paths
+const MOVIEFILES_PATH = '/videos'
+const THUMBNAILS_PATH = '/thumbnails'
+
+// ###################################################################
+// Server Init
+// ###################################################################
 
 // Front end files
 app.use(express.static(__dirname));
