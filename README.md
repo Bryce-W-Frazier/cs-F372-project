@@ -43,7 +43,7 @@ Exit Mongosh and return to project root dircetory
 Now that we have intizied the database we will start the server:
 Bash (from project src directory):
 ```
-node server/server.js
+node server.js
 ```
 
 The server should start up and show it's open port. Now go to the http://localhost:3000, 
