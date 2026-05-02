@@ -58,4 +58,6 @@ Once a users first connects to the site they are sent to the login page. If the 
 account they can sign in with their credentials. If a viewer dosn't have an accout they may 
 create one by clicking the link to the sign up page. 
 
-Once a viewer has logged in, they can click on a movie that in the gallery and watch it. 
+Once a Viewer has logged in, they can click on a movie that in the gallery and watch it. 
+
+A content manger in the the upload area they can Input the title and year of the moive's release. Then upload the Movie's webm file and the thumbnail's png file. Click on upload to sumbit the flim.
