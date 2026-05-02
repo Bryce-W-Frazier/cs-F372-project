@@ -1,6 +1,6 @@
 // server.js
-// Open and maintain TCP/HTTP contections
-// Added: 2026-03-31
+// Open and maintain TCP/HTTP contections.
+// Added: 2026-03-31.
 
 const express = require('express');
 const path = require('path');
@@ -25,8 +25,44 @@ const MOVIE_API_PATH = '/api/moviedata';
 const UPLOAD_MOVIE_PATH = '/addContent';
 
 // File Paths
-const MOVIEFILES_PATH = '/videos'
-const THUMBNAILS_PATH = '/thumbnails'
+const VIDEO_DIR = path.join(__dirname, 'uploads', 'video');
+const THUMB_DIR = path.join(__dirname, 'uploads', 'thumbnail');
+
+// ###################################################################
+// Storage Management
+// ###################################################################
+
+// Make directories if they don't exist.
+[VIDEO_DIR, THUMB_DIR].forEach(dir => {
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+});
+
+// Multer storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    if (file.fieldname === 'video') cb(null, VIDEO_DIR);
+    else if (file.fieldname === 'thumbnail') cb(null, THUMB_DIR);
+    else cb(null, path.join(__dirname, 'uploads', 'other'));
+  },
+  filename: (req, file, cb) => {
+    // sanitize / make unique. Example: timestamp + original name
+    const safe = Date.now() + '-' + file.originalname.replace(/\s+/g, '_');
+    cb(null, safe);
+  }
+});
+
+// Accept only .webm for video and .png for thumbnail.
+const fileFilter = (req, file, cb) => {
+  if (file.fieldname === 'video') {
+    cb(null, file.mimetype === 'video/webm');
+  } else if (file.fieldname === 'thumbnail') {
+    cb(null, file.mimetype === 'image/png');
+  } else cb(null, false);
+};
+
+const upload = multer({ storage, fileFilter });
+
+
 
 // ###################################################################
 // Server Init
@@ -62,9 +98,11 @@ app.post(LOGIN_PATH, async (req, res) => {
   }
 });
 
+
 app.get(SIGNUP_PATH, (req, res) => {
     res.sendFile(path.join(__dirname, SIGNUP_PAGE));
 });
+
 
 // Listen for sign up requests
 app.post(SIGNUP_PATH, async (req, res) => {
@@ -84,6 +122,7 @@ app.post(SIGNUP_PATH, async (req, res) => {
   }
 });
 
+
 // Listen for admin sign ups
 app.post(ADMIN_SIGNUP_PATH, async (req, res) => {
   const { role, email, password } = req.body;
@@ -101,6 +140,7 @@ app.post(ADMIN_SIGNUP_PATH, async (req, res) => {
   } 
 });
 
+
 // ###################################################################
 // Movie API
 // ###################################################################
@@ -109,12 +149,37 @@ app.get(MOVIE_API_PATH, async (req, res) => {
   res.status(200).json(await moviedata.getCollection());
 });
 
+app.post('/addContent', 
+  upload.fields([
+    { name: 'video', maxCount: 1 },
+    { name: 'thumbnail', maxCount: 1 }
+]), 
+(req, res) => {
+  const { title, year } = req.body;
+
+  // Uploaded files info:
+  // req.files.video and req.files.thumbnail are arrays
+  const videoFile = req.files?.video?.[0];
+  const thumbFile = req.files?.thumbnail?.[0];
+
+  if (!videoFile || !thumbFile) {
+    return res.status(400).send('Both video and thumbnail are required.');
+  }
+
+  // You can store metadata to DB or respond with file paths
+  res.json({
+    message: 'Upload successful',
+    title,
+    year,
+    videoPath: path.relative(__dirname, videoFile.path),
+    thumbnailPath: path.relative(__dirname, thumbFile.path)
+  });
+});
+
+
 // start the server
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
 });
 
-app.post(UPLOAD_MOVIE_PATH, () => {
-
-});
 
