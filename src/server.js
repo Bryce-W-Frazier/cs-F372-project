@@ -16,6 +16,7 @@ const SIGNUP_PAGE = 'signup.html';
 const SIGNUP_PATH = '/signup';
 const ADMIN_SIGNUP_PATH = '/adminSignup';
 const MOVIE_API_PATH = '/api/moviedata';
+const UPLOAD_MOVIE_PATH = '/addContent':
 
 // Front end files
 app.use(express.static(__dirname));
@@ -99,5 +100,7 @@ app.listen(3000, () => {
     console.log("Server is running on port 3000");
 });
 
+app.post(UPLOAD_MOVIE_PATH, () => {
 
+});
 
