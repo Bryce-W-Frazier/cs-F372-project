@@ -176,6 +176,14 @@ app.post('/addContent',
   const OLD_THUMB_PATH = THUMB_FILE.path;
   const NEW_THUMB_PATH = path
     .join(path.dirname(OLD_THUMB_PATH), NEW_THUMB_FILENAME);
+  fs.rename(OLD_THUMB_PATH, NEW_THUMB_PATH, err => { 
+    if (err) { 
+      console.error(err); 
+      return res.status(500).send('Rename failed'); 
+    } 
+    moviedata.addMovie(title, year, VIDEO_BASE); 
+    res.status(200).end(); 
+  });
 
   // Append to database
   moviedata.addMovie(title, year, VIDEO_BASE);

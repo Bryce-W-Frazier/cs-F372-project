@@ -21,10 +21,16 @@ async function getCollection() {
   return docs;
 }
 
+// Grabs an interactable collection object
+async function getCollectionObject() {
+  await MONGO_CLIENT.connect();
+  return MONGO_CLIENT.db(DB_NAME).collection(COLLECTION_NAME);
+}
+
 // Function addMovie
 async function addMovie(title, year, filename) {
   try {
-    const db_collection = await getCollection();
+    const db_collection = await getCollectionObject();
  
     const NEW_MOVIE = {
       title: title,
