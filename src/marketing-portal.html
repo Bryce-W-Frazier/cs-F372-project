@@ -14,6 +14,20 @@
     <table id="thumbnail_table" name="thumbnail_table">
     </table>
 
+    <form action="/message-to-editor" method="post">
+    <label for="subject">Subject</label>
+    <br>
+    <input id="subject" name="subject" type="text" 
+    	maxlength="200" placeholder="Subject">
+
+    <label for="message">Message</label>
+    <br>
+    <textarea id="message" name="message"
+	placeholder="Write your message to the content editors"></textarea>
+
+    <button type="submit">Send Message</button>
+  </form>
+
     <div style="text-align: center; margin: 20px;">
 	<a href="index.html" ><button id="logoutBtn" style=
 	"background-color: red; color: white; padding: 10px 20px;
