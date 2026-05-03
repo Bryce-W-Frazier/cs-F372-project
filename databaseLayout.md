@@ -24,6 +24,7 @@
         relese_year: 1902,
         date_added: in unix time,
         file_name: "a_trip_to_the_moon_1902",
+        viewcount: 0,
     },
     {
         ...
@@ -38,7 +39,7 @@
     _id: ObjectId('69f69f856577fc2a096bafc9'),
     timedate: '05/02/2026, 17:06:09',
     subject: 'Test',
-    message: 'This is a comment'
+    message: 'This is a comment',
   },
   {
     ...
