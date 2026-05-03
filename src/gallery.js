@@ -30,7 +30,6 @@ for (let filename in filenames) {
   movie_paths.push(MOVIE_DIR + filenames[filename] + '.webm');
 }
 
-
 // Generate table for gallery
 for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
   //new row on thumbnail table
@@ -72,11 +71,11 @@ for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
     curr_img.alt = img_paths[img_index];
     curr_img.id = id;
     curr_img.name = id;
-    curr_a.href = movie_paths[img_index];
+    //curr_a.href = movie_paths[img_index];
 
     //Report views to server
     curr_a.addEventListener('click', async (e) => {
-	countView(MOVIE_DATA[col_index].filename);
+	countView(MOVIE_DATA[col_index].file_name);
     });
 
     //put image on column

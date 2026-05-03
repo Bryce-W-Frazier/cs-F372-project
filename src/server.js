@@ -27,6 +27,7 @@ const SIGNUP_PATH = '/signup';
 const ADMIN_SIGNUP_PATH = '/adminSignup';
 const MOVIE_API_PATH = '/api/moviedata';
 const MSG_API_PATH = '/api/msgdata';
+const VIEW_COUNTING_PATH = '/api/countview';
 const UPLOAD_MOVIE_PATH = '/addContent';
 const MSG_TO_EDIT = '/message-to-editor';
 const MSG_TO_MARKETING = '/message-to-marketing';
@@ -197,6 +198,15 @@ app.post('/addContent',
   
   res.status(200);
 });
+
+app.post(VIEW_COUNTING_PATH, async (req, res) => {
+  const { filename } = req.body;
+
+  moviedata.countView(filename);
+ 
+  res.status(200);
+});
+
 
 // ###################################################################
 // Message board

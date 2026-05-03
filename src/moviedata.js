@@ -48,9 +48,20 @@ async function addMovie(title, year, filename) {
   }
 }
 
+async function countView(filename) {
+  const COLLECTION = await getCollectionObject();
+
+  const FILTER = `file_name: "${filename}"`;                     
+  const UPDATE = { $inc: { "views": 1 } };
+  const OPTIONS = { upsert: true }; 
+
+  await COLLECTION.updateOne({file_name: filename}, UPDATE, OPTIONS);
+}
+
 
 // Export modules for server.js
 module.exports = {
   getCollection,
-  addMovie
+  addMovie,
+  countView,
 };
