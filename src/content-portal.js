@@ -2,6 +2,14 @@
 // Load movie thumbnails from server
 // Started: 2026-04-08
 
+// Element Names
+const THUMB_TABLE = 'thumbnail_table';
+const MSG_BOX = 'messages_box';
+
+// Data API paths
+const MOVIE_DATA_PATH = '/api/moviedata';
+const MSG_DATA_PATH = '/api/msgdata':
+
 // max dimentions for gallery
 const MAX_ROWS = 5;
 const MAX_COLS = 4;
@@ -10,7 +18,7 @@ let thumbnails = new Array(MAX_COLS * MAX_ROWS);
 // Get movie data
 const IMG_DIR_NAME = '/thumbnails/';
 const MOVIE_DIR = '/videos/';
-const MOVIE_DATA = await getMovieData();
+const MOVIE_DATA = await pullData(MOVIE_DATA_PATH);
 let  filenames = getImgFilenames(MOVIE_DATA);
 
 let img_paths = [];
@@ -23,6 +31,8 @@ for (let filename in filenames) {
   movie_paths.push(MOVIE_DIR + filenames[filename] + '.webm');
 }
 
+// Get Messages
+const MSG_DATA = await pullData(MSG_DATA_PATH);
 
 // Generate table for gallery
 for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
@@ -74,14 +84,33 @@ for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
   }
 }
 
-// Function getMovieData()
-// Pulls movie data from server.
-async function getMovieData() {
-  const res = await fetch('/api/moviedata');
+// Dispaly messages
+for (const MSG of MSG_DATA) {
+  let timedate = document.createElement("h4");
+  let subject = document.createElement("h4");
+  let message = document.createElement("p");
+  let lineBreak = document.createElement("br");
+
+  timedate.textContent = MSG.timedate;
+  subject.textContent = MSG.subject;
+  message.textContent = MSG.message;
+
+  document.getElementById(MSG_BOX).appendChild(timedate);
+  document.getElementById(MSG_BOX).appendChild(subject);
+  document.getElementById(MSG_BOX).appendChild(message);
+  document.getElementById(MSG_BOX).appendChild(lineBreak);
+}
+
+
+// Function pullData()
+// Pulls data from server.
+async function pullData(data_path) {
+  const res = await fetch(MOVIE_DATA_PATH);
   if (!res.ok) throw new Error(res.status);
   const data = await res.json();
   return data;
 }
+
 
 // Function getImgFilenames()
 // Gets filenames from movie data.
