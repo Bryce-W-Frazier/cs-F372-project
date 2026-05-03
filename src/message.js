@@ -1,5 +1,6 @@
-// moviedata.js 
-// Handle moive data calls with mongodb on server end.
+// message.js 
+// Handle message db between marketing manager 
+// and content editor.
 // Started: 2026-04-16
 
 const sha256 = require('js-sha256');
@@ -61,5 +62,5 @@ async function send(subject, message) {
 // Export modules for server.js
 module.exports = {
   getCollection,
-  send
+  send,
 };

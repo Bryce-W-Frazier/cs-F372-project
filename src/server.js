@@ -11,7 +11,7 @@ const fs = require('fs');
 // Local Modules
 const auth = require('./auth.js');
 const moviedata = require('./moviedata.js');
-const message = require('./message.js');
+const messagejs = require('./message.js');
 
 const app = express();
 
@@ -74,6 +74,7 @@ const upload = multer({ storage, fileFilter });
 
 // Front end files
 app.use(express.static(__dirname));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // localhost:3000 sends the login page
@@ -200,14 +201,15 @@ app.post('/addContent',
 // ###################################################################
 
 app.post('/message-to-editor', (req, res) => {
-  const { subject , message } = req.body;
+  console.log(req.body);
+  const { subject, message } = req.body;
 
   // Basic validation
   if (!subject.trim() || !message.trim()) {
     return res.status(400).send('Subject and message are required.');
   }
 
-  message.send(subject, message);
+  messagejs.send(subject, message);
 
   res.status(200); 
 });
