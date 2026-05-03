@@ -11,6 +11,16 @@ const DB_NAME          = 'fakeflix';
 const COLLECTION_NAME  = 'marketing_messages';
 const MONGO_CLIENT = new MongoClient(DB_SERVER_URI);
 
+// For timedate
+const TIME_ZONE = 'America/Anchorage'
+const dt = new Date();
+const fmt = new Intl.DateTimeFormat('en-US', {
+  timeZone: TIME_ZONE,
+  year: 'numeric', month: '2-digit', day: '2-digit',
+  hour: '2-digit', minute: '2-digit', second: '2-digit',
+  hour12: false
+});
+
 // Helper function to grab database collection
 async function getCollection() {
   await MONGO_CLIENT.connect();
@@ -33,6 +43,7 @@ async function send(subject, message) {
     const db_collection = await getCollectionObject();
  
     const NEW_MESSAGE = {
+      timedate: fmt.format(dt),
       subject: subject,
       message: message,
     };
