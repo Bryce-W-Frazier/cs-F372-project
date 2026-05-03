@@ -150,7 +150,6 @@ app.post(ADMIN_SIGNUP_PATH, async (req, res) => {
 // Movie API
 // ###################################################################
 app.get(MOVIE_API_PATH, async (req, res) => {
-  console.log(await moviedata.getCollection());
   res.status(200).json(await moviedata.getCollection());
 });
 
@@ -201,7 +200,6 @@ app.post('/addContent',
 // ###################################################################
 
 app.post('/message-to-editor', (req, res) => {
-  console.log(req.body);
   const { subject, message } = req.body;
 
   // Basic validation
