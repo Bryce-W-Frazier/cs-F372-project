@@ -59,19 +59,12 @@ for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
       break; // Quit col iteration
     }
 
-    //Parase filename and init tooltip
-    curr_img.title = img_paths[img_index]
-      //filename => english
-      .replace(IMG_DIR_NAME, "")
-      .replace(/-|_/g, " ")
-      .replace(/.png|/gi, "")
-      //To title case
-      .split(' ')
-      .map(word => 
-        word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
-
-    curr_count.textContent = `Views: ${MOVIE_DATA[col_index].views}`;
+    try {
+      curr_count.textContent = `Views: ${MOVIE_DATA[col_index].views}`;
+      console.log(MOVIE_DATA[col_index].views);
+    } catch {
+      break;
+    }
 
     //init other image atributes & link
     curr_img.src = img_paths[img_index];

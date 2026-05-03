@@ -71,7 +71,7 @@ for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
     curr_img.alt = img_paths[img_index];
     curr_img.id = id;
     curr_img.name = id;
-    //curr_a.href = movie_paths[img_index];
+    curr_a.href = movie_paths[img_index];
 
     //Report views to server
     curr_a.addEventListener('click', async (e) => {
