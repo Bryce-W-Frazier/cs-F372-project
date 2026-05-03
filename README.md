@@ -3,11 +3,22 @@
 ## What is FakeFlix?
 FakeFlix is an online streaming platform built for the web.
 
-When users first connect to the site, they are routed to the **Login** page. If a viewer already has an account, they can sign in with their credentials. If a viewer doesn't have an account, they may create one by clicking the link to the **Sign Up** page.
+When users first connect to the site, they are routed to the **Login** page. If a viewer already has an account,
+they can sign in with their credentials. If a viewer doesn't have an account, they may create one by clicking the
+link to the **Sign Up** page.
 
-Once logged in, viewers can browse the media gallery, select a movie, and stream it directly in their browser.
+Once logged in, **Viewers** can browse the media gallery, select a movie, and stream it directly in their browser.
 
-**Content Managers** have access to a dedicated upload area. There, they can input the title and release year of a movie, upload the movie's video file (in `.webm` format) alongside a thumbnail image (in `.png` format), and click "Upload" to securely submit the film to the database.
+**Content Editors** have access to a dedicated upload area. There, they can input the title and release year of a
+movie, upload the movie's video file (in `.webm` format) alongside a thumbnail image (in `.png` format), and click
+"Upload" to securely submit the film to the database. They also have access to a message board with Marketing 
+Managers.
+
+**Marketing Managers** can see the number of views per-movie and can use the messaging board to communicate with 
+the Content Editors. They can discuss startegies to help promote current and future movies.
+
+**Admins** can create an account with any role. This is used to make accounts for employees working with Fakeflix
+and can also be used to help viewers make accounts as well.
 
 ---
 
