@@ -6,39 +6,63 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div style="text-align: center; margin: 20px;">
-        <input type="text" id="searchInput" placeholder="Search the movies" 
-	style="padding: 10px; width: 60%; font-size: 16px; border-radius: 5px;">
+
+    <!--
+    <table id="thumbnail_table" name="thumbnail_table">
+    </table>-->
+
+    <h2>Upload Movie</h2>
+    <form action="/addContent" method="post" id="addContent" name="addContent"
+    enctype="multipart/form-data">
+	<input type="text" name="title" id="title" placeholder="Title of Flim"
+		required>
+	<input type="number" name="year" id="year" placeholder="Year of relase"
+		required>
+
+	<br>
+	<label for="video">Upload .webm here.</label>
+	<input type="file" name="video" id="video" accept="video/webm" 
+		required>
+
+	<br>
+	<label for="thumbnail">Upload .png here.</label>
+	<input type="file" name="thumbnail" id="thumbnail" accept="image/png" 
+		required>`
+
+	<br>
+	<button type="submit">Upload</button>
+    </form>
+    <br>
+
+    <h2>Messages from marketing managers</h2>
+    <div id="messages_box" name="messages_box">
     </div>
 
-    <table id="thumbnail_table" name="thumbnail_table">
-    </table>
-
-    <form action="/message-to-editor" method="post">
-	<label for="subject">Subject</label>
-	<br>
-	<input id="subject" name="subject" type="text" 
-	    maxlength="200" placeholder="Subject">
-
-	<label for="message">Message</label>
-	<br>
-	<textarea id="message" name="message"
-	    placeholder="Write your message to the content editors"></textarea>
-
-	<button type="submit">Send Message</button>
-    </form>
-
     <div style="text-align: center; margin: 20px;">
-	<a href="index.html" ><button id="logoutBtn" style=
-	"background-color: red; color: white; padding: 10px 20px;
-	font-weight: bold; border: none; border-radius: 5px; cursor: 
-	pointer; margin-left: 10px;">
+	<a href="index.html" ><button id="logoutBtn" style="background-color: red; 
+	color: white; padding: 10px 20px; font-weight: bold; border: none; 
+	border-radius: 5px; cursor: pointer; margin-left: 10px;">
 		Log Out
 	</button></a>
-    </div>
+    </div>	
 
-    <footer style="background-color: #111; text-align: center; padding: 15px; 
-	    border-top: 1px solid #444; font-size: 12px; color: #aaa;">
+    <h2>Messages</h2>
+    <form action="/message-to-editor" method="post">
+        <label for="subject">Subject</label>
+        <br>
+        <input id="subject" name="subject" type="text" 
+            maxlength="200" placeholder="Subject">
+
+        <label for="message">Message</label>
+        <br>
+        <textarea id="message" name="message"
+            placeholder="Write your message to the team."></textarea>
+
+        <button type="submit">Send Message</button>
+    </form>
+
+
+    <footer style="background-color: #111; text-align: center; padding: 15px; border-top: 1px solid #444; font-size: 12px; color: #aaa;">
         <p>&copy; 2026 FakeFlix Entertainment. All rights reserved.</p>
         <p>Contact Support: 1-800-FAKE-FLIX | support@fakeflix.com</p>
     </footer> 
