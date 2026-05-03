@@ -1,5 +1,6 @@
-// gallery.js
-// Load movie thumbnails from server
+// content-portal.js
+// Allow content editors to interact with marketing/editing team.
+// Allow content editor to add movies.
 // Started: 2026-04-08
 
 // Element Names
