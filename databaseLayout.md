@@ -32,6 +32,7 @@
 ```
 
 ## Collection: marketing_messages
+```
 [
   {
     _id: ObjectId('69f69f856577fc2a096bafc9'),
@@ -43,3 +44,4 @@
     ...
   },
 ]
+```
