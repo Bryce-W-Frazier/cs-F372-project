@@ -30,3 +30,16 @@
     },
 ]
 ```
+
+## Collection: marketing_messages
+[
+  {
+    _id: ObjectId('69f69f856577fc2a096bafc9'),
+    timedate: '05/02/2026, 17:06:09',
+    subject: 'Test',
+    message: 'This is a comment'
+  },
+  {
+    ...
+  },
+]
