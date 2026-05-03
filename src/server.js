@@ -28,6 +28,8 @@ const ADMIN_SIGNUP_PATH = '/adminSignup';
 const MOVIE_API_PATH = '/api/moviedata';
 const MSG_API_PATH = '/api/msgdata';
 const UPLOAD_MOVIE_PATH = '/addContent';
+const MSG_TO_EDIT = '/message-to-editor';
+const MSG_TO_MARKETING = '/message-to-marketing';
 
 // File Paths
 const VIDEO_DIR = path.join(__dirname, 'videos');
@@ -197,10 +199,11 @@ app.post('/addContent',
 });
 
 // ###################################################################
-// Comments to editors
+// Message board
 // ###################################################################
 
-app.post('/message-to-editor', (req, res) => {
+app.post(MSG_TO_EDIT, (req, res) => {
+  const ROLE = 'Marketing Management';
   const { subject, message } = req.body;
 
   // Basic validation
@@ -208,10 +211,25 @@ app.post('/message-to-editor', (req, res) => {
     return res.status(400).send('Subject and message are required.');
   }
 
-  messagejs.send(subject, message);
+  messagejs.send(subject, message, ROLE);
 
   res.status(200); 
 });
+
+app.post(MSG_TO_MARKETING, (req, res) => {
+  const ROLE = 'Content Editoral';
+  const { subject, message } = req.body;
+
+  // Basic validation
+  if (!subject.trim() || !message.trim()) {
+    return res.status(400).send('Subject and message are required.');
+  }
+
+  messagejs.send(subject, message, ROLE);
+
+  res.status(200);
+});
+
 
 app.get(MSG_API_PATH, async (req, res) => {
   res.status(200).json(await messagejs.getCollection());

@@ -38,13 +38,16 @@ async function getCollectionObject() {
   return MONGO_CLIENT.db(DB_NAME).collection(COLLECTION_NAME);
 }
 
-// Function addMovie
-async function send(subject, message) {
+// Function send
+// Takes subject, message and, role as stirngs and posts it 
+// on the message board with a time stamp.
+async function send(subject, message, role) {
   try {
     const db_collection = await getCollectionObject();
  
     const NEW_MESSAGE = {
       timedate: fmt.format(dt),
+      role: role,
       subject: subject,
       message: message,
     };
