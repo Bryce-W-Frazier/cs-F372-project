@@ -1,5 +1,6 @@
-// gallery.js
-// Load movie thumbnails from server
+// marketing-portal.js
+// Alow marketing manages to interact with editors and marking.
+// Also see views per movie
 // Started: 2026-04-08
 
 // Element Names
@@ -35,17 +36,17 @@ for (let filename in filenames) {
 const MSG_DATA = await pullData(MSG_DATA_PATH);
 
 // Generate table for gallery
-/*
 for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
   //new row on thumbnail table
   let curr_row = document.createElement("tr");
-  document.getElementById("thumbnail_table").appendChild(curr_row);
+  document.getElementById(THUMB_TABLE).appendChild(curr_row);
 
   for (let col_index = 0; col_index < MAX_COLS; col_index++) {
     //init image and column
     let curr_col = document.createElement("td");
-    let curr_a   = document.createElement("a");
+    let curr_div   = document.createElement("a");
     let curr_img = document.createElement("img");
+    let curr_count = document.createElement("p");
 
     // make keys for images
     let img_index = row_index * MAX_COLS + col_index;
@@ -70,20 +71,21 @@ for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
         word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
 
+    curr_count.textContent = `Views: ${MOVIE_DATA[col_index].views}`;
 
     //init other image atributes & link
     curr_img.src = img_paths[img_index];
     curr_img.alt = img_paths[img_index];
     curr_img.id = id;
     curr_img.name = id;
-    curr_a.href = movie_paths[img_index];
 
-    //put image on column
-    curr_a.appendChild(curr_img);
-    curr_col.appendChild(curr_a);
+    //put image on column with counter
+    curr_div.appendChild(curr_img);
+    curr_div.appendChild(curr_count);
+    curr_col.appendChild(curr_div);
     curr_row.appendChild(curr_col);
   }
-}*/
+}
 
 // Dispaly messages
 for (const MSG of MSG_DATA) {
