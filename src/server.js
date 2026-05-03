@@ -196,7 +196,7 @@ app.post('/addContent',
   // Append to database
   moviedata.addMovie(title, year, VIDEO_BASE);
   
-  res.status(200);
+  res.redirect(302, req.get('Referer') || '/');
 });
 
 app.post(VIEW_COUNTING_PATH, async (req, res) => {
@@ -204,7 +204,7 @@ app.post(VIEW_COUNTING_PATH, async (req, res) => {
 
   moviedata.countView(filename);
  
-  res.status(200);
+  res.redirect(302, req.get('Referer') || '/');
 });
 
 
@@ -223,7 +223,7 @@ app.post(MSG_TO_EDIT, (req, res) => {
 
   messagejs.send(subject, message, ROLE);
 
-  res.status(200); 
+  res.redirect(302, req.get('Referer') || '/');
 });
 
 app.post(MSG_TO_MARKETING, (req, res) => {
@@ -237,7 +237,7 @@ app.post(MSG_TO_MARKETING, (req, res) => {
 
   messagejs.send(subject, message, ROLE);
 
-  res.status(200);
+   res.redirect(302, req.get('Referer') || '/');
 });
 
 

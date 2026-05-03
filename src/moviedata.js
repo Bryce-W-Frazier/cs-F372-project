@@ -29,23 +29,15 @@ async function getCollectionObject() {
 
 // Function addMovie
 async function addMovie(title, year, filename) {
-  try {
-    const db_collection = await getCollectionObject();
+  const db_collection = await getCollectionObject();
  
-    const NEW_MOVIE = {
-      title: title,
-      relese_year: year,
-      data_added: Math.floor(Date.now() / 1000),
-      file_name: filename,
-    };
-
-    const result = await db_collection.insertOne(NEW_MOVIE);
-    console.log(`Added new movie, Object ID: ${result.insertedId}`);
-    return true;
-  } catch (error) {
-      console.error(`Database Error: ${error}`);
-      return false;
-  }
+  const NEW_MOVIE = {
+    title: title,
+    relese_year: year,
+    data_added: Math.floor(Date.now() / 1000),
+    file_name: filename,
+    views: 0,
+   };
 }
 
 async function countView(filename) {
