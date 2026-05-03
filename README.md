@@ -38,6 +38,7 @@ Mongosh:
 use fakeflix
 db.useraccounts.insertOne({ username: "admin", password_sha256: "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
 db.createCollection("videos")
+db.createCollection("marketing_messages");
 ```
 Exit Mongosh and return to project root dircetory
 
