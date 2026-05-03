@@ -29,7 +29,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
       case 'content-editor':
         window.location.href = '/content-portal.html';
 	break;
-      case 'marketing-mangager':
+      case 'marketing-manager':
 	window.location.href = '/marketing-portal.html';
 	break;
       case 'admin':
