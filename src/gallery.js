@@ -7,6 +7,7 @@ const THUMB_TABLE = 'thumbnail_table';
 
 // Data API paths
 const MOVIE_DATA_PATH = '/api/moviedata';
+const COUNT_API_PATH = '/api/countview';
 
 // max dimentions for gallery
 const MAX_ROWS = 5;
@@ -73,6 +74,11 @@ for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
     curr_img.name = id;
     curr_a.href = movie_paths[img_index];
 
+    //Report views to server
+    curr_a.addEventListener('click', async (e) => {
+	countView(MOVIE_DATA[col_index].filename);
+    });
+
     //put image on column
     curr_a.appendChild(curr_img);
     curr_col.appendChild(curr_a);
@@ -98,4 +104,19 @@ function getImgFilenames(data) {
     filenames.push(movie.file_name);
   }
   return filenames;
+}
+
+// Function countView()
+// Takes the filename of the movie and reports a view
+// to the server.
+async function countView(filename) {
+  const data = { filename: filename, };
+
+  fetch(COUNT_API_PATH, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .catch(err => console.error(err));
 }
