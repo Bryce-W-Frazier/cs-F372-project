@@ -2,12 +2,16 @@
 // Open and maintain TCP/HTTP contections.
 // Added: 2026-03-31.
 
+// npm Modules
 const express = require('express');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
+
+// Local Modules
 const auth = require('./auth.js');
 const moviedata = require('./moviedata.js');
+const message = require('./message.js');
 
 const app = express();
 
@@ -191,6 +195,22 @@ app.post('/addContent',
   res.status(200);
 });
 
+// ###################################################################
+// Comments to editors
+// ###################################################################
+
+app.post('/message-to-editor', (req, res) => {
+  const { subject , message } = req.body;
+
+  // Basic validation
+  if (!subject.trim() || !message.trim()) {
+    return res.status(400).send('Subject and message are required.');
+  }
+
+  message.send(subject, message);
+
+  res.status(200); 
+});
 
 // start the server
 app.listen(3000, () => {
