@@ -26,6 +26,7 @@ const LOGIN_PATH = '/login';
 const SIGNUP_PATH = '/signup';
 const ADMIN_SIGNUP_PATH = '/adminSignup';
 const MOVIE_API_PATH = '/api/moviedata';
+const MSG_API_PATH = '/api/msgdata';
 const UPLOAD_MOVIE_PATH = '/addContent';
 
 // File Paths
@@ -210,6 +211,10 @@ app.post('/message-to-editor', (req, res) => {
   messagejs.send(subject, message);
 
   res.status(200); 
+});
+
+app.get(MSG_API_PATH, async (req, res) => {
+  res.status(200).json(await messagejs.getCollection());
 });
 
 // start the server

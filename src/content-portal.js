@@ -8,7 +8,7 @@ const MSG_BOX = 'messages_box';
 
 // Data API paths
 const MOVIE_DATA_PATH = '/api/moviedata';
-const MSG_DATA_PATH = '/api/msgdata':
+const MSG_DATA_PATH = '/api/msgdata';
 
 // max dimentions for gallery
 const MAX_ROWS = 5;
@@ -35,6 +35,7 @@ for (let filename in filenames) {
 const MSG_DATA = await pullData(MSG_DATA_PATH);
 
 // Generate table for gallery
+/*
 for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
   //new row on thumbnail table
   let curr_row = document.createElement("tr");
@@ -82,7 +83,7 @@ for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
     curr_col.appendChild(curr_a);
     curr_row.appendChild(curr_col);
   }
-}
+}*/
 
 // Dispaly messages
 for (const MSG of MSG_DATA) {
@@ -91,6 +92,7 @@ for (const MSG of MSG_DATA) {
   let message = document.createElement("p");
   let lineBreak = document.createElement("br");
 
+  console.log(MSG);
   timedate.textContent = MSG.timedate;
   subject.textContent = MSG.subject;
   message.textContent = MSG.message;
@@ -105,7 +107,7 @@ for (const MSG of MSG_DATA) {
 // Function pullData()
 // Pulls data from server.
 async function pullData(data_path) {
-  const res = await fetch(MOVIE_DATA_PATH);
+  const res = await fetch(data_path);
   if (!res.ok) throw new Error(res.status);
   const data = await res.json();
   return data;
