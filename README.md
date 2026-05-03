@@ -62,4 +62,6 @@ create one by clicking the link to the sign up page.
 
 Once a Viewer has logged in, they can click on a movie that in the gallery and watch it. 
 
-A content manger in the the upload area they can Input the title and year of the moive's release. Then upload the Movie's webm file and the thumbnail's png file. Click on upload to sumbit the flim.
+A content manger in the the upload area they can Input the title and year of the moive's release. Then upload the Movie's webm file and the thumbnail's png file. Click on upload to sumbit the flim. At the botten the content editor can see the messages left by the marketing manager. Below the board they can also send a reply.
+
+A marketing manger can send and recevice messages from the content editor.
