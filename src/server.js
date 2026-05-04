@@ -162,42 +162,41 @@ app.post('/addContent',
     { name: 'video', maxCount: 1 },
     { name: 'thumbnail', maxCount: 1 }
 ]), 
-(req, res) => {
-  const { title, year } = req.body;
+async (req, res) => {
+  try {
+    const { title, year } = req.body;
 
-  // Uploaded files info:
-  // req.files.video and req.files.thumbnail are arrays
-  const VIDEO_FILE = req.files?.video?.[0];
-  const THUMB_FILE = req.files?.thumbnail?.[0];
+    // Uploaded files info:
+    // req.files.video and req.files.thumbnail are arrays
+    const VIDEO_FILE = req.files?.video?.[0];
+    const THUMB_FILE = req.files?.thumbnail?.[0];
 
-  if (!VIDEO_FILE || !THUMB_FILE) {
-    return res.status(400).send('Both video and thumbnail are required.');
+    if (!VIDEO_FILE || !THUMB_FILE) {
+      return res.status(400).send('Both video and thumbnail are required.');
+    }
+
+    // Get video filename...
+    const VIDEO_FILENAME = VIDEO_FILE.filename;
+    const VIDEO_BASE = path.parse(VIDEO_FILENAME).name;
+    const THUMB_EXT = path.extname(THUMB_FILE.originalname) || 
+      path.extname(THUMB_FILE.filename) || '.png';
+    // ...and rename thumbnail to the same name but preserve minetype.
+    const NEW_THUMB_FILENAME = VIDEO_BASE + THUMB_EXT;
+    const OLD_THUMB_PATH = THUMB_FILE.path;
+    const NEW_THUMB_PATH = path
+      .join(path.dirname(OLD_THUMB_PATH), NEW_THUMB_FILENAME);
+	
+    // Wait for file ops then add to db
+    await fs.promises.rename(OLD_THUMB_PATH, NEW_THUMB_PATH);
+    await moviedata.addMovie(title, year, VIDEO_BASE);
+    return res.redirect(302, req.get('Referer') || '/');
+
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send('Upload error');
   }
-
-  // Get video filename...
-  const VIDEO_FILENAME = VIDEO_FILE.filename;
-  const VIDEO_BASE = path.parse(VIDEO_FILENAME).name;
-  const THUMB_EXT = path.extname(THUMB_FILE.originalname) || 
-    path.extname(THUMB_FILE.filename) || '.png';
-  // ...and rename thumbnail to the same name but preserve minetype.
-  const NEW_THUMB_FILENAME = VIDEO_BASE + THUMB_EXT;
-  const OLD_THUMB_PATH = THUMB_FILE.path;
-  const NEW_THUMB_PATH = path
-    .join(path.dirname(OLD_THUMB_PATH), NEW_THUMB_FILENAME);
-  fs.rename(OLD_THUMB_PATH, NEW_THUMB_PATH, err => { 
-    if (err) { 
-      console.error(err); 
-      return res.status(500).send('Rename failed'); 
-    } 
-    moviedata.addMovie(title, year, VIDEO_BASE); 
-    res.status(200).end(); 
-  });
-
-  // Append to database
-  moviedata.addMovie(title, year, VIDEO_BASE);
-  
-  res.redirect(302, req.get('Referer') || '/');
 });
+
 
 app.post(VIEW_COUNTING_PATH, async (req, res) => {
   const { filename } = req.body;

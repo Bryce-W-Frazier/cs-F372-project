@@ -29,7 +29,7 @@ async function getCollectionObject() {
 
 // Function addMovie
 async function addMovie(title, year, filename) {
-  const db_collection = await getCollectionObject();
+  const COLLECTION = await getCollectionObject();
  
   const NEW_MOVIE = {
     title: title,
@@ -38,6 +38,8 @@ async function addMovie(title, year, filename) {
     file_name: filename,
     views: 0,
    };
+
+   await COLLECTION.insertOne(NEW_MOVIE);
 }
 
 async function countView(filename) {
