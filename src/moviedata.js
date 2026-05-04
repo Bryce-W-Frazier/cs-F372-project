@@ -34,7 +34,7 @@ async function addMovie(title, year, filename) {
   const NEW_MOVIE = {
     title: title,
     relese_year: year,
-    data_added: Math.floor(Date.now() / 1000),
+    date_added: Math.floor(Date.now() / 1000),
     file_name: filename,
     views: 0,
    };
