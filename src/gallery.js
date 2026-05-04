@@ -53,12 +53,8 @@ for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
       break; // Quit col iteration
     }
 
-    
     //Parase filename and init tooltip
-    console.log(img_index);
-    console.log(img_paths.length);
     curr_img.title = MOVIE_DATA[img_index].title;
-
 
     //init other image atributes & link
     curr_img.src = img_paths[img_index];
