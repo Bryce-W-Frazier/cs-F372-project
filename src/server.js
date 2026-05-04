@@ -98,16 +98,16 @@ app.post(LOGIN_PATH, async (req, res) => {
 
   if (AUTHED_ROLE != 'auth-fail') {
     console.log(`User Verified.`);
-    // Status 200 means success
     res.status(200).send({ message: "Login Successful", role: AUTHED_ROLE });
   } else {
     console.log(`Failed to verify user`);
-    // Status 418 means...unauthorized
-    res.status(418).send({ message: "Login Failed. Invalid username or password." }); 
+    res.status(401).send(
+      { message: "Login Failed. Invalid username or password." }
+    ); 
   }
 });
 
-
+//Handle Signup requests
 app.get(SIGNUP_PATH, (req, res) => {
     res.sendFile(path.join(__dirname, SIGNUP_PAGE));
 });
@@ -122,12 +122,15 @@ app.post(SIGNUP_PATH, async (req, res) => {
   
   if (is_created) {
     console.log(`User created.`);
-    // Status 201 means created
     res.status(201).send({ message: "Signup Successful!" }); 
   } else {
-    console.log(`Failed to create user. Username may already exist, or there is a database error.`);
-    // Status 418 means...teapot
-    res.status(418).send({ message: "Signup Failed. Username already exists" }); 
+    console.log(
+      `Failed to create user. Username may already exist, 
+       or there is a database error.`
+    );
+    res.status(401).send(
+      { message: "Signup Failed. Username already exists" }
+    ); 
   }
 });
 
@@ -143,9 +146,13 @@ app.post(ADMIN_SIGNUP_PATH, async (req, res) => {
     // Status 201 means created
     res.status(201).send({ message: "Signup Successful!" }); 
   } else {
-    console.log(`Failed to create user. Username may already exist, or there is a database error.`);
-    // Status 418 means...teapot
-    res.status(418).send({ message: "Signup Failed. Username already exists" }); 
+    console.log(
+      `Failed to create user. Username may already exist, 
+      or there is a database error.`
+    );
+    res.status(401).send(
+      { message: "Signup Failed. Username already exists" }
+    ); 
   } 
 });
 
