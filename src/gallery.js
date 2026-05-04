@@ -48,22 +48,16 @@ for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
     thumbnails.push(id);
 
     // Check if img_index is inbounds
-    if (img_index > img_paths.length) {
+    if (img_index+1 > MOVIE_DATA.length) {
       row_index = MAX_ROWS; //Quit row iteration
       break; // Quit col iteration
     }
 
+    
     //Parase filename and init tooltip
-    curr_img.title = img_paths[img_index]
-      //filename => english
-      .replace(IMG_DIR_NAME, "")
-      .replace(/-|_/g, " ")
-      .replace(/.png|/gi, "")
-      //To title case
-      .split(' ')
-      .map(word => 
-        word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+    console.log(img_index);
+    console.log(img_paths.length);
+    curr_img.title = MOVIE_DATA[img_index].title;
 
 
     //init other image atributes & link
