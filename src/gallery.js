@@ -65,7 +65,9 @@ for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
 
     //Report views to server
     curr_a.addEventListener('click', async (e) => {
-	countView(MOVIE_DATA[col_index].file_name);
+      e.preventDefault();
+      countView(MOVIE_DATA[col_index].file_name);
+      window.location.href = curr_a.href;
     });
 
     //put image on column
