@@ -1,6 +1,6 @@
 // content-portal.js
 // Allow content editors to interact with marketing/editing team.
-// Allow content editor to add movies.
+// Allow content editor to add & remove movies.
 // Started: 2026-04-08
 
 // Element Names
@@ -10,8 +10,12 @@ const MSG_BOX = 'messages_box';
 // Data API paths
 const MOVIE_DATA_PATH = '/api/moviedata';
 const MSG_DATA_PATH = '/api/msgdata';
+const DEL_MOVIE_PATH = '/delmovie';
 
-// max dimentions for gallery
+// Confrim Delete Tracker
+let confrimDel = '';
+
+// Max dimentions for gallery
 const MAX_ROWS = 5;
 const MAX_COLS = 4;
 let thumbnails = new Array(MAX_COLS * MAX_ROWS);
@@ -35,56 +39,51 @@ for (let filename in filenames) {
 // Get Messages
 const MSG_DATA = await pullData(MSG_DATA_PATH);
 
-// Generate table for gallery
-/*
+// Generate table for gallery to remove movies.
 for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
-  //new row on thumbnail table
+  // New row on thumbnail table.
   let curr_row = document.createElement("tr");
-  document.getElementById("thumbnail_table").appendChild(curr_row);
+  document.getElementById(THUMB_TABLE).appendChild(curr_row);
 
   for (let col_index = 0; col_index < MAX_COLS; col_index++) {
-    //init image and column
+    // Init image and column.
     let curr_col = document.createElement("td");
-    let curr_a   = document.createElement("a");
+    let curr_div   = document.createElement("div");
     let curr_img = document.createElement("img");
 
-    // make keys for images
+    // Make keys for images.
     let img_index = row_index * MAX_COLS + col_index;
     let id = "thumbnail_" + img_index.toString();
     thumbnails.push(id);
 
-    // Check if img_index is inbounds
-    if (img_index > img_paths.length) {
-      row_index = MAX_ROWS; //Quit row iteration
-      break; // Quit col iteration
+    // Check if img_index is inbounds.
+    if (img_index+1 > MOVIE_DATA.length) {
+      row_index = MAX_ROWS; // Quit row iteration.
+      break; // Quit col iteration.
     }
 
-    //Parase filename and init tooltip
-    curr_img.title = img_paths[img_index]
-      //filename => english
-      .replace(IMG_DIR_NAME, "")
-      .replace(/-|_/g, " ")
-      .replace(/.png|/gi, "")
-      //To title case
-      .split(' ')
-      .map(word => 
-        word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+    // Parase filename and init tooltip.
+    curr_img.title = MOVIE_DATA[img_index].title;
 
-
-    //init other image atributes & link
+    // Init other image atributes & link.
+    curr_img.style = "width:25%; border:1px solid #ccc; padding:8px;"
     curr_img.src = img_paths[img_index];
     curr_img.alt = img_paths[img_index];
     curr_img.id = id;
     curr_img.name = id;
-    curr_a.href = movie_paths[img_index];
 
-    //put image on column
-    curr_a.appendChild(curr_img);
-    curr_col.appendChild(curr_a);
+    // Deal with Movie delation.
+    curr_div.addEventListener('click', async (e) => {
+      removeMovie(MOVIE_DATA[img_index].file_name, MOVIE_DATA[img_index].title);
+    });
+
+    // Put image on column.
+    curr_div.appendChild(curr_img);
+    curr_col.appendChild(curr_div);
     curr_row.appendChild(curr_col);
   }
-}*/
+}
+
 
 // Dispaly messages
 for (const MSG of MSG_DATA) {
@@ -125,4 +124,27 @@ function getImgFilenames(data) {
     filenames.push(movie.file_name);
   }
   return filenames;
+}
+
+// Function removeMovie()
+// Takes the filename on the movie and requests server
+// to take it down.
+function removeMovie(filename, title) {
+  if (filename == confrimDel) {
+    await fetch(DEL_MOVIE_PATH, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ filename }),
+    });
+
+    alert(`"${title}" deleted.`);
+  } else {
+    confrimDel = filename;	  
+    alert(`
+      Are you sure you want to delete: "${title}"?\n
+      Click thumbnail of "${title}" again to confirm.
+    `);
+  }
 }
