@@ -35,7 +35,7 @@ for (let filename in filenames) {
 for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
   //new row on thumbnail table
   let curr_row = document.createElement("tr");
-  document.getElementById("thumbnail_table").appendChild(curr_row);
+  document.getElementById(THUMB_TABLE).appendChild(curr_row);
 
   for (let col_index = 0; col_index < MAX_COLS; col_index++) {
     //init image and column
