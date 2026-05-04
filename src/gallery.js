@@ -30,6 +30,7 @@ for (let filename in filenames) {
   movie_paths.push(MOVIE_DIR + filenames[filename] + '.webm');
 }
 
+
 // Generate table for gallery
 for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
   //new row on thumbnail table
@@ -57,6 +58,7 @@ for (let row_index = 0; row_index < MAX_ROWS; row_index++) {
     curr_img.title = MOVIE_DATA[img_index].title;
 
     //init other image atributes & link
+    curr_img.style = "width:25%; border:1px solid #ccc; padding:8px;"
     curr_img.src = img_paths[img_index];
     curr_img.alt = img_paths[img_index];
     curr_img.id = id;
