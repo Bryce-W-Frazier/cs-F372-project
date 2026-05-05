@@ -10,7 +10,7 @@ const MSG_BOX = 'messages_box';
 // Data API paths
 const MOVIE_DATA_PATH = '/api/moviedata';
 const MSG_DATA_PATH = '/api/msgdata';
-const DEL_MOVIE_PATH = '/delmovie';
+const DEL_MOVIE_PATH = '/delContent';
 
 // Confrim Delete Tracker
 let confrimDel = '';
@@ -129,7 +129,7 @@ function getImgFilenames(data) {
 // Function removeMovie()
 // Takes the filename on the movie and requests server
 // to take it down.
-function removeMovie(filename, title) {
+async function removeMovie(filename, title) {
   if (filename == confrimDel) {
     await fetch(DEL_MOVIE_PATH, {
       method: 'POST',
@@ -140,6 +140,8 @@ function removeMovie(filename, title) {
     });
 
     alert(`"${title}" deleted.`);
+
+    location.replace(location.href);
   } else {
     confrimDel = filename;	  
     alert(`

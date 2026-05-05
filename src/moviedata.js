@@ -11,6 +11,7 @@ const DB_NAME          = 'fakeflix';
 const COLLECTION_NAME  = 'videos';
 const MONGO_CLIENT = new MongoClient(DB_SERVER_URI);
 
+// Function getCollection()
 // Helper function to grab database collection
 async function getCollection() {
   await MONGO_CLIENT.connect();
@@ -21,13 +22,16 @@ async function getCollection() {
   return docs;
 }
 
+// Function getCollectionObject()
 // Grabs an interactable collection object
 async function getCollectionObject() {
   await MONGO_CLIENT.connect();
   return MONGO_CLIENT.db(DB_NAME).collection(COLLECTION_NAME);
 }
 
-// Function addMovie
+// Function addMovie()
+// Takes title, year, and filename then adds the movie to 
+// collection with timestamp.
 async function addMovie(title, year, filename) {
   const COLLECTION = await getCollectionObject();
  
@@ -42,6 +46,9 @@ async function addMovie(title, year, filename) {
    await COLLECTION.insertOne(NEW_MOVIE);
 }
 
+// Function countView()
+// Takes the filename of the movie and incurments the 
+// number of views.
 async function countView(filename) {
   const COLLECTION = await getCollectionObject();
 
@@ -52,10 +59,20 @@ async function countView(filename) {
   await COLLECTION.updateOne({file_name: filename}, UPDATE, OPTIONS);
 }
 
+// Function countView()
+// Takes the filename of the movie and removes it from the 
+// colleciton.
+async function delMovie(filename) {
+  const COLLECTION = await getCollectionObject();
+
+  await COLLECTION.deleteOne({file_name: filename});
+}
+
 
 // Export modules for server.js
 module.exports = {
   getCollection,
   addMovie,
   countView,
+  delMovie,
 };

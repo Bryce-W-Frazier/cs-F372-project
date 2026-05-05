@@ -2,7 +2,7 @@
 // Open and maintain TCP/HTTP contections.
 // Added: 2026-03-31.
 
-// npm Modules
+// npm & node Modules
 const express = require('express');
 const path = require('path');
 const multer = require('multer');
@@ -31,6 +31,7 @@ const VIEW_COUNTING_PATH = '/api/countview';
 const UPLOAD_MOVIE_PATH = '/addContent';
 const MSG_TO_EDIT = '/message-to-editor';
 const MSG_TO_MARKETING = '/message-to-marketing';
+const DEL_MOVIE_PATH = '/delContent';
 
 // File Paths
 const VIDEO_DIR = path.join(__dirname, 'videos');
@@ -164,6 +165,7 @@ app.get(MOVIE_API_PATH, async (req, res) => {
   res.status(200).json(await moviedata.getCollection());
 });
 
+// Note: adds files movie locally, calls moviedata for mongodb.
 app.post('/addContent', 
   upload.fields([
     { name: 'video', maxCount: 1 },
@@ -213,6 +215,23 @@ app.post(VIEW_COUNTING_PATH, async (req, res) => {
   res.redirect(302, req.get('Referer') || '/');
 });
 
+// Note: deletes movie files locally calls moviedata for mongodb.
+app.post(DEL_MOVIE_PATH, async (req, res) => {
+  const { filename } = req.body;
+
+  moviedata.delMovie(filename);
+
+  try {
+    fs.unlinkSync(`${VIDEO_DIR}/${filename}.webm`);
+    fs.unlinkSync(`${THUMB_DIR}/${filename}.png`);
+  } catch {
+    console.log('Movie already removed');
+  }
+
+  res.status(200);
+});
+
+
 
 // ###################################################################
 // Message board
@@ -243,7 +262,7 @@ app.post(MSG_TO_MARKETING, (req, res) => {
 
   messagejs.send(subject, message, ROLE);
 
-   res.redirect(302, req.get('Referer') || '/');
+  res.redirect(302, req.get('Referer') || '/');
 });
 
 
